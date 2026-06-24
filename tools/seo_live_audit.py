@@ -9,67 +9,67 @@ from urllib.parse import urljoin, urlparse
 from urllib.request import HTTPRedirectHandler, Request, build_opener
 
 
-DEFAULT_BASE_URL = "https://thebellavuegroup.com"
+DEFAULT_BASE_URL = "https://thebellevuehomes.com"
 TIMEOUT = 15
 
 PAGES = [
     {
         "label": "Home",
         "path": "/",
-        "canonical": "https://thebellavuegroup.com/",
-        "title": "Luxury Home Builders in Chicago | The Bellavue Group",
-        "description": "The Bellavue Group builds refined custom homes and bespoke residences in Chicago, combining architectural detail, craftsmanship, and elevated residential design.",
+        "canonical": "https://thebellevuehomes.com/",
+        "title": "Luxury Home Builders in Chicago | The Bellevue Homes",
+        "description": "The Bellevue Homes builds refined custom homes and bespoke residences in Chicago, combining architectural detail, craftsmanship, and elevated residential design.",
         "h1": "Luxury Home Builders in Chicago",
     },
     {
         "label": "About",
         "path": "/about",
-        "canonical": "https://thebellavuegroup.com/about",
-        "title": "About Our Chicago Luxury Home Builders | The Bellavue Group",
-        "description": "Learn about The Bellavue Group, a Chicago residential development team creating refined custom homes with thoughtful design, craftsmanship, and enduring elegance.",
-        "h1": "About The Bellavue Group",
+        "canonical": "https://thebellevuehomes.com/about",
+        "title": "About Our Chicago Luxury Home Builders | The Bellevue Homes",
+        "description": "Learn about The Bellevue Homes, a Chicago residential development team creating refined custom homes with thoughtful design, craftsmanship, and enduring elegance.",
+        "h1": "About The Bellevue Homes",
     },
     {
         "label": "Portfolio",
         "path": "/portfolio-1",
-        "canonical": "https://thebellavuegroup.com/portfolio-1",
-        "title": "Chicago Luxury Home Portfolio | The Bellavue Group",
-        "description": "View featured Bellavue Group homes in Lakeview and Lincoln Square, including completed and under-construction luxury residences in Chicago.",
+        "canonical": "https://thebellevuehomes.com/portfolio-1",
+        "title": "Chicago Luxury Home Portfolio | The Bellevue Homes",
+        "description": "View featured Bellevue Homes homes in Lakeview and Lincoln Square, including completed and under-construction luxury residences in Chicago.",
         "h1": "Featured Chicago Luxury Home Projects",
     },
     {
         "label": "Gallery",
         "path": "/gallery",
-        "canonical": "https://thebellavuegroup.com/gallery",
-        "title": "Luxury Home Design Gallery | The Bellavue Group",
-        "description": "Explore Bellavue Group interiors, kitchens, bedrooms, bathrooms, living spaces, and custom residential details from luxury homes in Chicago.",
+        "canonical": "https://thebellevuehomes.com/gallery",
+        "title": "Luxury Home Design Gallery | The Bellevue Homes",
+        "description": "Explore Bellevue Homes interiors, kitchens, bedrooms, bathrooms, living spaces, and custom residential details from luxury homes in Chicago.",
         "h1": "Luxury Home Design Gallery",
     },
     {
         "label": "Testimonials",
         "path": "/testimonials",
-        "canonical": "https://thebellavuegroup.com/testimonials",
-        "title": "Client Testimonials | The Bellavue Group",
-        "description": "Read testimonials from buyers, brokers, and design professionals about The Bellavue Group’s craftsmanship, design vision, and Chicago luxury homes.",
-        "h1": "Bellavue Group Testimonials",
+        "canonical": "https://thebellevuehomes.com/testimonials",
+        "title": "Client Testimonials | The Bellevue Homes",
+        "description": "Read testimonials from buyers, brokers, and design professionals about The Bellevue Homes’s craftsmanship, design vision, and Chicago luxury homes.",
+        "h1": "Bellevue Homes Testimonials",
     },
     {
         "label": "Contact",
         "path": "/contact",
-        "canonical": "https://thebellavuegroup.com/contact",
-        "title": "Contact The Bellavue Group | Chicago Luxury Home Builders",
-        "description": "Contact The Bellavue Group to inquire about custom homes, luxury residential projects, and refined homebuilding in Chicago.",
-        "h1": "Contact The Bellavue Group",
+        "canonical": "https://thebellevuehomes.com/contact",
+        "title": "Contact The Bellevue Homes | Chicago Luxury Home Builders",
+        "description": "Contact The Bellevue Homes to inquire about custom homes, luxury residential projects, and refined homebuilding in Chicago.",
+        "h1": "Contact The Bellevue Homes",
     },
 ]
 
 EXPECTED_SITEMAP_URLS = [
-    "https://thebellavuegroup.com/",
-    "https://thebellavuegroup.com/about",
-    "https://thebellavuegroup.com/portfolio-1",
-    "https://thebellavuegroup.com/gallery",
-    "https://thebellavuegroup.com/testimonials",
-    "https://thebellavuegroup.com/contact",
+    "https://thebellevuehomes.com/",
+    "https://thebellevuehomes.com/about",
+    "https://thebellevuehomes.com/portfolio-1",
+    "https://thebellevuehomes.com/gallery",
+    "https://thebellevuehomes.com/testimonials",
+    "https://thebellevuehomes.com/contact",
 ]
 
 
@@ -167,7 +167,7 @@ def normalized_text(value):
 
 def request_once(url):
     opener = build_opener(NoRedirect)
-    req = Request(url, headers={"User-Agent": "Bellavue SEO Live Audit/1.0"})
+    req = Request(url, headers={"User-Agent": "Bellevue SEO Live Audit/1.0"})
     try:
         with opener.open(req, timeout=TIMEOUT) as response:
             body = response.read()
@@ -316,7 +316,7 @@ def check_robots(results, base_url):
     for required in [
         "User-agent: *",
         "Allow: /",
-        "Sitemap: https://thebellavuegroup.com/sitemap.xml",
+        "Sitemap: https://thebellevuehomes.com/sitemap.xml",
     ]:
         if required not in text:
             results.fail(f"robots.txt: missing {required}")
@@ -353,7 +353,7 @@ def check_sitemap(results, base_url):
     if urls != EXPECTED_SITEMAP_URLS:
         results.fail(f"sitemap.xml: loc values mismatch: {urls!r}")
         failed = True
-    if any("www.thebellavuegroup.com" in item for item in urls):
+    if any("www.thebellevuehomes.com" in item for item in urls):
         results.fail("sitemap.xml: contains www URL")
         failed = True
     if any(".html" in item for item in urls):
@@ -365,8 +365,8 @@ def check_sitemap(results, base_url):
 
 def check_www_host(results):
     print("\nwww Host")
-    source = "https://www.thebellavuegroup.com/about"
-    target = "https://thebellavuegroup.com/about"
+    source = "https://www.thebellevuehomes.com/about"
+    target = "https://thebellevuehomes.com/about"
     response, chain, loop = fetch_with_redirects(source)
     first_status = chain[0]["status"]
     final_url = chain[-1]["url"]
