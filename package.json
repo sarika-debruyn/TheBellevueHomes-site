@@ -1,0 +1,13 @@
+{
+  "name": "thebellavuegroup",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static rebuild of The Bellavue Group website for Firebase Hosting.",
+  "scripts": {
+    "preview": "npx serve site",
+    "deploy": "firebase deploy --only hosting",
+    "firebase:login": "firebase login",
+    "firebase:init": "firebase init hosting"
+  }
+}
+
