@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://thebellavuegroup.com/sitemap.xml
+Sitemap: https://thebellevuehomes.com/sitemap.xml

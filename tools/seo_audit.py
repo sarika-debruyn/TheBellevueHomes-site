@@ -14,9 +14,9 @@ PAGES = [
     {
         "label": "Home",
         "file": "site/index.html",
-        "canonical": "https://thebellavuegroup.com/",
-        "title": "Luxury Home Builders in Chicago | The Bellavue Group",
-        "description": "The Bellavue Group builds refined custom homes and bespoke residences in Chicago, combining architectural detail, craftsmanship, and elevated residential design.",
+        "canonical": "https://thebellevuehomes.com/",
+        "title": "Luxury Home Builders in Chicago | The Bellevue Homes",
+        "description": "The Bellevue Homes builds refined custom homes and bespoke residences in Chicago, combining architectural detail, craftsmanship, and elevated residential design.",
         "h1": "Luxury Home Builders in Chicago",
         "links": ["/portfolio-1", "/gallery", "/contact"],
         "schema": {"Organization", "WebSite", "WebPage"},
@@ -24,19 +24,19 @@ PAGES = [
     {
         "label": "About",
         "file": "site/about.html",
-        "canonical": "https://thebellavuegroup.com/about",
-        "title": "About Our Chicago Luxury Home Builders | The Bellavue Group",
-        "description": "Learn about The Bellavue Group, a Chicago residential development team creating refined custom homes with thoughtful design, craftsmanship, and enduring elegance.",
-        "h1": "About The Bellavue Group",
+        "canonical": "https://thebellevuehomes.com/about",
+        "title": "About Our Chicago Luxury Home Builders | The Bellevue Homes",
+        "description": "Learn about The Bellevue Homes, a Chicago residential development team creating refined custom homes with thoughtful design, craftsmanship, and enduring elegance.",
+        "h1": "About The Bellevue Homes",
         "links": ["/portfolio-1", "/contact"],
         "schema": {"WebPage", "BreadcrumbList"},
     },
     {
         "label": "Portfolio",
         "file": "site/portfolio-1.html",
-        "canonical": "https://thebellavuegroup.com/portfolio-1",
-        "title": "Chicago Luxury Home Portfolio | The Bellavue Group",
-        "description": "View featured Bellavue Group homes in Lakeview and Lincoln Square, including completed and under-construction luxury residences in Chicago.",
+        "canonical": "https://thebellevuehomes.com/portfolio-1",
+        "title": "Chicago Luxury Home Portfolio | The Bellevue Homes",
+        "description": "View featured Bellevue Homes homes in Lakeview and Lincoln Square, including completed and under-construction luxury residences in Chicago.",
         "h1": "Featured Chicago Luxury Home Projects",
         "links": ["/gallery", "/contact"],
         "schema": {"WebPage", "BreadcrumbList"},
@@ -44,9 +44,9 @@ PAGES = [
     {
         "label": "Gallery",
         "file": "site/gallery.html",
-        "canonical": "https://thebellavuegroup.com/gallery",
-        "title": "Luxury Home Design Gallery | The Bellavue Group",
-        "description": "Explore Bellavue Group interiors, kitchens, bedrooms, bathrooms, living spaces, and custom residential details from luxury homes in Chicago.",
+        "canonical": "https://thebellevuehomes.com/gallery",
+        "title": "Luxury Home Design Gallery | The Bellevue Homes",
+        "description": "Explore Bellevue Homes interiors, kitchens, bedrooms, bathrooms, living spaces, and custom residential details from luxury homes in Chicago.",
         "h1": "Luxury Home Design Gallery",
         "links": ["/portfolio-1", "/contact"],
         "schema": {"WebPage", "BreadcrumbList"},
@@ -54,20 +54,20 @@ PAGES = [
     {
         "label": "Testimonials",
         "file": "site/testimonials.html",
-        "canonical": "https://thebellavuegroup.com/testimonials",
-        "title": "Client Testimonials | The Bellavue Group",
-        "description": "Read testimonials from buyers, brokers, and design professionals about The Bellavue Group’s craftsmanship, design vision, and Chicago luxury homes.",
-        "h1": "Bellavue Group Testimonials",
+        "canonical": "https://thebellevuehomes.com/testimonials",
+        "title": "Client Testimonials | The Bellevue Homes",
+        "description": "Read testimonials from buyers, brokers, and design professionals about The Bellevue Homes’s craftsmanship, design vision, and Chicago luxury homes.",
+        "h1": "Bellevue Homes Testimonials",
         "links": ["/portfolio-1", "/contact"],
         "schema": {"WebPage", "BreadcrumbList"},
     },
     {
         "label": "Contact",
         "file": "site/contact.html",
-        "canonical": "https://thebellavuegroup.com/contact",
-        "title": "Contact The Bellavue Group | Chicago Luxury Home Builders",
-        "description": "Contact The Bellavue Group to inquire about custom homes, luxury residential projects, and refined homebuilding in Chicago.",
-        "h1": "Contact The Bellavue Group",
+        "canonical": "https://thebellevuehomes.com/contact",
+        "title": "Contact The Bellevue Homes | Chicago Luxury Home Builders",
+        "description": "Contact The Bellevue Homes to inquire about custom homes, luxury residential projects, and refined homebuilding in Chicago.",
+        "h1": "Contact The Bellevue Homes",
         "links": ["/portfolio-1", "/gallery"],
         "schema": {"WebPage", "BreadcrumbList"},
     },
@@ -88,12 +88,12 @@ APPROVED_ROUTES = {
 }
 
 EXPECTED_SITEMAP_URLS = [
-    "https://thebellavuegroup.com/",
-    "https://thebellavuegroup.com/about",
-    "https://thebellavuegroup.com/portfolio-1",
-    "https://thebellavuegroup.com/gallery",
-    "https://thebellavuegroup.com/testimonials",
-    "https://thebellavuegroup.com/contact",
+    "https://thebellevuehomes.com/",
+    "https://thebellevuehomes.com/about",
+    "https://thebellevuehomes.com/portfolio-1",
+    "https://thebellevuehomes.com/gallery",
+    "https://thebellevuehomes.com/testimonials",
+    "https://thebellevuehomes.com/contact",
 ]
 
 GENERIC_ALTS = {
@@ -216,7 +216,7 @@ def jsonld_domain_values(doc):
     values = []
     for item in walk_json(doc):
         for key, value in item.items():
-            if key in {"@id", "url", "item"} and isinstance(value, str) and "thebellavuegroup.com" in value:
+            if key in {"@id", "url", "item"} and isinstance(value, str) and "thebellevuehomes.com" in value:
                 values.append(value)
     return values
 
@@ -269,7 +269,7 @@ def audit_pages(issues):
                 add_issue(issues, page["file"], f"missing required contextual/internal link href {required}")
 
         for href in parser.hrefs:
-            if "www.thebellavuegroup.com" in href:
+            if "www.thebellevuehomes.com" in href:
                 add_issue(issues, page["file"], f"href uses www host: {href}")
             if is_internal_href(href):
                 route = href.split("#", 1)[0].split("?", 1)[0]
@@ -311,9 +311,9 @@ def audit_pages(issues):
                 if forbidden:
                     add_issue(issues, page["file"], f"JSON-LD has forbidden schema types: {', '.join(sorted(forbidden))}")
                 for value in jsonld_domain_values(doc):
-                    if not value.startswith("https://thebellavuegroup.com"):
+                    if not value.startswith("https://thebellevuehomes.com"):
                         add_issue(issues, page["file"], f"JSON-LD URL/id is not canonical apex https: {value}")
-                    if "www.thebellavuegroup.com" in value:
+                    if "www.thebellevuehomes.com" in value:
                         add_issue(issues, page["file"], f"JSON-LD URL/id uses www: {value}")
 
     if len(high_priority) != 1:
@@ -333,7 +333,7 @@ def audit_robots(issues):
     for required in [
         "User-agent: *",
         "Allow: /",
-        "Sitemap: https://thebellavuegroup.com/sitemap.xml",
+        "Sitemap: https://thebellevuehomes.com/sitemap.xml",
     ]:
         if required not in text:
             add_issue(issues, "site/robots.txt", f"missing required line: {required}")
@@ -356,7 +356,7 @@ def audit_sitemap(issues):
     if urls != EXPECTED_SITEMAP_URLS:
         add_issue(issues, "site/sitemap.xml", f"loc values mismatch: {urls!r}")
     for url in urls:
-        if "www.thebellavuegroup.com" in url:
+        if "www.thebellevuehomes.com" in url:
             add_issue(issues, "site/sitemap.xml", f"contains www URL: {url}")
         if ".html" in url:
             add_issue(issues, "site/sitemap.xml", f"contains .html URL: {url}")

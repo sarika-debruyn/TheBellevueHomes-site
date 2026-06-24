@@ -1,6 +1,6 @@
-# The Bellavue Group
+# The Bellevue Homes
 
-Static rebuild of `https://www.thebellavuegroup.com` prepared for Firebase Hosting.
+Static rebuild of `https://www.thebellevuehomes.com` prepared for Firebase Hosting.
 
 ## Local preview
 
