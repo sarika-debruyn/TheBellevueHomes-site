@@ -29,7 +29,7 @@ PAGES = [
         "description": "Learn about The Bellevue Homes, a Chicago residential development team creating refined custom homes with thoughtful design, craftsmanship, and enduring elegance.",
         "h1": "About The Bellevue Homes",
         "links": ["/portfolio-1", "/contact"],
-        "schema": {"WebPage", "BreadcrumbList"},
+        "schema": {"WebPage", "BreadcrumbList", "Person"},
     },
     {
         "label": "Portfolio",
@@ -139,6 +139,12 @@ OWNER_ENCODING_MARKERS = [
 ]
 
 SOURCE_SCAN_SUFFIXES = {".html", ".json", ".py", ".md", ".txt"}
+
+OWNER_NAME = "Anita Goyal"
+OWNER_JOB_TITLE = "Designer and Real Estate Developer"
+OWNER_DESCRIPTION = "Anita Goyal is a designer and real estate developer who leads The Bellevue Homes with a focus on refined residential design, thoughtful spatial planning, and elegant modern living. Her work brings together development discipline and a designer's eye for light, flow, proportion, and warmth, creating homes that feel sophisticated, functional, and deeply livable."
+OWNER_ID = "https://thebellevuehomes.com/#owner"
+ORGANIZATION_ID = "https://thebellevuehomes.com/#organization"
 
 FORBIDDEN_SCHEMA = {
     "LocalBusiness",
@@ -252,6 +258,25 @@ def jsonld_domain_values(doc):
     return values
 
 
+
+def find_person_entity(doc):
+    for item in walk_json(doc):
+        item_type = item.get("@type")
+        types = item_type if isinstance(item_type, list) else [item_type]
+        if "Person" in types and item.get("@id") == OWNER_ID:
+            return item
+    return None
+
+
+def entity_refers_to_org(value):
+    if isinstance(value, dict):
+        return value.get("@id") == ORGANIZATION_ID
+    if isinstance(value, list):
+        return any(entity_refers_to_org(item) for item in value)
+    if isinstance(value, str):
+        return value == ORGANIZATION_ID
+    return False
+
 def is_internal_href(href):
     parsed = urlparse(href)
     return not parsed.scheme and not parsed.netloc and href.startswith("/")
@@ -298,6 +323,13 @@ def audit_pages(issues):
         parser.feed(html)
         parsed_pages.append((page, parser))
 
+        if page["label"] == "About":
+            if OWNER_NAME not in html:
+                add_issue(issues, page["file"], f"missing visible owner name: {OWNER_NAME}")
+            if OWNER_JOB_TITLE not in html:
+                add_issue(issues, page["file"], "missing visible owner job title")
+            if OWNER_DESCRIPTION not in html:
+                add_issue(issues, page["file"], "missing visible owner description")
 
         if normalized_text(parser.title) != page["title"]:
             add_issue(issues, page["file"], f"title mismatch: {normalized_text(parser.title)!r}")
@@ -369,6 +401,26 @@ def audit_pages(issues):
                 forbidden = found_types & FORBIDDEN_SCHEMA
                 if forbidden:
                     add_issue(issues, page["file"], f"JSON-LD has forbidden schema types: {', '.join(sorted(forbidden))}")
+                if page["label"] == "About":
+                    person = find_person_entity(doc)
+                    if person is None:
+                        add_issue(issues, page["file"], "JSON-LD missing Anita Goyal Person entity")
+                    else:
+                        if person.get("name") != OWNER_NAME:
+                            add_issue(issues, page["file"], "owner Person name mismatch")
+                        if person.get("jobTitle") != OWNER_JOB_TITLE:
+                            add_issue(issues, page["file"], "owner Person jobTitle mismatch")
+                        if person.get("description") != OWNER_DESCRIPTION:
+                            add_issue(issues, page["file"], "owner Person description mismatch")
+                        if "sameAs" in person:
+                            add_issue(issues, page["file"], "owner Person must not include sameAs without approved URLs")
+                        connected = any(
+                            entity_refers_to_org(person.get(key))
+                            for key in ("worksFor", "memberOf", "affiliation")
+                        )
+                        if not connected:
+                            add_issue(issues, page["file"], "owner Person is not connected to The Bellevue Homes organization")
+
                 for value in jsonld_domain_values(doc):
                     if not value.startswith("https://thebellevuehomes.com"):
                         add_issue(issues, page["file"], f"JSON-LD URL/id is not canonical apex https: {value}")
