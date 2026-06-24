@@ -109,6 +109,37 @@ GENERIC_ALTS = {
     "exterior",
 }
 
+def joined(*parts):
+    return "".join(parts)
+
+
+BLOCKED_SOURCE_STRINGS = [
+    joined("OWNER", "_", "FULL", "_", "NAME"),
+    joined("OWNER", "_", "ROLE", "_", "TITLE"),
+    joined("OWNER", "_", "SHORT", "_", "BIO"),
+    joined("OWNER", "_", "SAME", "_", "AS", "_", "URLS"),
+    joined("REAL", "_", "OWNER", "_", "FULL", "_", "NAME"),
+    joined("REAL", "_", "OWNER", "_", "ROLE", "_", "TITLE"),
+    joined("REAL", "_", "OWNER", "_", "SHORT", "_", "BIO"),
+    joined("REAL", "_", "OWNER", "_", "SAME", "_", "AS", "_", "URLS"),
+    joined("APPROVED", "_", "OWNER", "_", "FULL", "_", "NAME"),
+    joined("APPROVED", "_", "OWNER", "_", "ROLE", "_", "TITLE"),
+    joined("APPROVED", "_", "OWNER", "_", "SHORT", "_", "BIO"),
+    joined("APPROVED", "_", "OWNER", "_", "SAME", "_", "AS", "_", "URLS"),
+    joined("place", "holder"),
+    joined("red", "acted"),
+    joined("T", "BD"),
+    joined("TO", "DO"),
+]
+
+OWNER_ENCODING_MARKERS = [
+    joined("\\u005f", "OWNER"),
+    joined("&#95;", "OWNER"),
+    joined("_", "OWNER", "_"),
+]
+
+SOURCE_SCAN_SUFFIXES = {".html", ".json", ".py", ".md", ".txt"}
+
 FORBIDDEN_SCHEMA = {
     "LocalBusiness",
     "HomeAndConstructionBusiness",
@@ -226,6 +257,32 @@ def is_internal_href(href):
     return not parsed.scheme and not parsed.netloc and href.startswith("/")
 
 
+def source_files_to_scan():
+    skip_dirs = {".git", "node_modules", "__pycache__", "www.thebellavuegroup.com"}
+    for item in ROOT.rglob("*"):
+        if not item.is_file():
+            continue
+        if any(part in skip_dirs for part in item.parts):
+            continue
+        if item.suffix in SOURCE_SCAN_SUFFIXES or item.name in {"firebase.json", "package.json", ".firebaserc"}:
+            yield item
+
+
+def audit_source_owner_tokens(issues):
+    for file_path in source_files_to_scan():
+        rel_path = str(file_path.relative_to(ROOT))
+        text = file_path.read_text(encoding="utf-8", errors="ignore")
+        for blocked in BLOCKED_SOURCE_STRINGS:
+            if blocked in text:
+                add_issue(issues, rel_path, "blocked owner source token is present")
+        for marker in OWNER_ENCODING_MARKERS:
+            if marker in text:
+                add_issue(issues, rel_path, "encoded or constructed owner marker is present")
+        if file_path.suffix == ".js" and "owner" in text.lower():
+            if any(marker in text for marker in ("innerHTML", "textContent", "insertAdjacentHTML")):
+                add_issue(issues, rel_path, "owner text appears to be injected by script")
+
+
 def audit_pages(issues):
     high_priority = []
     parsed_pages = []
@@ -236,9 +293,11 @@ def audit_pages(issues):
             add_issue(issues, page["file"], "page file is missing")
             continue
 
+        html = file_path.read_text(encoding="utf-8")
         parser = PageParser()
-        parser.feed(file_path.read_text(encoding="utf-8"))
+        parser.feed(html)
         parsed_pages.append((page, parser))
+
 
         if normalized_text(parser.title) != page["title"]:
             add_issue(issues, page["file"], f"title mismatch: {normalized_text(parser.title)!r}")
@@ -392,6 +451,7 @@ def audit_firebase(issues):
 
 def main():
     issues = []
+    audit_source_owner_tokens(issues)
     audit_pages(issues)
     audit_robots(issues)
     audit_sitemap(issues)
