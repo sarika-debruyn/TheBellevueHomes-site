@@ -50,7 +50,7 @@ PAGES = [
         "path": "/testimonials",
         "canonical": "https://thebellevuehomes.com/testimonials",
         "title": "Client Testimonials | The Bellevue Homes",
-        "description": "Read testimonials from buyers, brokers, and design professionals about The Bellevue Homes’s craftsmanship, design vision, and Chicago luxury homes.",
+        "description": "Read testimonials from buyers, brokers, and design professionals about The Bellevue Homes' craftsmanship, design vision, and Chicago luxury homes.",
         "h1": "Bellevue Homes Testimonials",
     },
     {

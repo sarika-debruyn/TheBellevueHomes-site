@@ -56,9 +56,9 @@ PAGES = [
         "file": "site/testimonials.html",
         "canonical": "https://thebellevuehomes.com/testimonials",
         "title": "Client Testimonials | The Bellevue Homes",
-        "description": "Read testimonials from buyers, brokers, and design professionals about The Bellevue Homes’s craftsmanship, design vision, and Chicago luxury homes.",
+        "description": "Read testimonials from buyers, brokers, and design professionals about The Bellevue Homes' craftsmanship, design vision, and Chicago luxury homes.",
         "h1": "Bellevue Homes Testimonials",
-        "links": ["/portfolio-1", "/contact"],
+        "links": ["/portfolio-1", "/gallery", "/about", "/contact"],
         "schema": {"WebPage", "BreadcrumbList"},
     },
     {
@@ -194,6 +194,15 @@ OWNER_JOB_TITLE = "Designer and Real Estate Developer"
 OWNER_DESCRIPTION = "Anita Goyal is a designer and real estate developer who leads The Bellevue Homes with a focus on refined residential design, thoughtful spatial planning, and elegant modern living. Her work brings together development discipline and a designer's eye for light, flow, proportion, and warmth, creating homes that feel sophisticated, functional, and deeply livable."
 OWNER_ID = "https://thebellevuehomes.com/#owner"
 ORGANIZATION_ID = "https://thebellevuehomes.com/#organization"
+
+TESTIMONIALS_REQUIRED_COPY = [
+    "Client Confidence in Design-Led Homes",
+    "design-led residential development",
+    "featured portfolio projects",
+    "luxury home design gallery",
+    "Anita Goyal",
+    "contact The Bellevue Homes",
+]
 
 GALLERY_REQUIRED_COPY = [
     "Refined Interiors",
@@ -472,6 +481,11 @@ def audit_pages(issues):
             for required in GALLERY_REQUIRED_COPY:
                 if required not in visible_text:
                     add_issue(issues, page["file"], f"missing required Gallery copy: {required}")
+        elif page["label"] == "Testimonials":
+            visible_text = normalized_text(" ".join(parser.text_parts))
+            for required in TESTIMONIALS_REQUIRED_COPY:
+                if required not in visible_text:
+                    add_issue(issues, page["file"], f"missing required Testimonials copy: {required}")
 
         hrefs = set(parser.hrefs)
         for required in page["links"]:
