@@ -19,7 +19,7 @@ PAGES = [
         "description": "The Bellevue Homes builds refined custom homes and bespoke residences in Chicago, combining architectural detail, craftsmanship, and elevated residential design.",
         "h1": "Luxury Home Builders in Chicago",
         "links": ["/portfolio-1", "/gallery", "/contact"],
-        "schema": {"Organization", "WebSite", "WebPage"},
+        "schema": {"Organization", "WebSite", "WebPage", "FAQPage"},
     },
     {
         "label": "About",
@@ -195,12 +195,29 @@ OWNER_DESCRIPTION = "Anita Goyal is a designer and real estate developer who lea
 OWNER_ID = "https://thebellevuehomes.com/#owner"
 ORGANIZATION_ID = "https://thebellevuehomes.com/#organization"
 
+HOME_FAQ_QUESTIONS = [
+    "What types of homes does The Bellevue Homes create?",
+    "What does designer-led residential development mean?",
+    "Does The Bellevue Homes work on custom homes and transformations?",
+    "Where can I see completed and in-progress projects?",
+    "How do I start a conversation about a project?",
+    "Who leads The Bellevue Homes?",
+]
+
+HOME_FAQ_ANSWERS = [
+    "The Bellevue Homes creates custom estates, bespoke residences, and transformations for refined residential living in Chicago.",
+    "Designer-led residential development brings planning, proportion, flow, and refined material thinking into the development process from the beginning.",
+    "Yes. The Bellevue Homes presents custom estates, bespoke residences, and transformative renovations as part of its residential work.",
+    "You can view published portfolio projects in Lakeview and Lincoln Square on the Chicago portfolio page and explore interior details in the luxury home design gallery.",
+    "Use the contact page to inquire about custom homes, bespoke residences, transformations, or residential development opportunities.",
+    "The Bellevue Homes is led by Anita Goyal, Designer and Real Estate Developer.",
+]
+
 FORBIDDEN_SCHEMA = {
     "LocalBusiness",
     "HomeAndConstructionBusiness",
     "Review",
     "AggregateRating",
-    "FAQPage",
     "Service",
     "Product",
 }
@@ -224,6 +241,9 @@ class PageParser(HTMLParser):
         self.ld_json = []
         self.in_ld = False
         self.ld_buffer = []
+        self.text_parts = []
+        self.in_script = False
+        self.in_style = False
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
@@ -251,9 +271,13 @@ class PageParser(HTMLParser):
                 self.hrefs.append(href)
         elif tag == "img":
             self.imgs.append(attrs)
-        elif tag == "script" and attrs.get("type") == "application/ld+json":
-            self.in_ld = True
-            self.ld_buffer = []
+        elif tag == "script":
+            self.in_script = True
+            if attrs.get("type") == "application/ld+json":
+                self.in_ld = True
+                self.ld_buffer = []
+        elif tag == "style":
+            self.in_style = True
 
     def handle_endtag(self, tag):
         tag = tag.lower()
@@ -263,9 +287,13 @@ class PageParser(HTMLParser):
             self.in_h1 = False
         elif tag == "h2":
             self.in_h2 = False
-        elif tag == "script" and self.in_ld:
-            self.ld_json.append("".join(self.ld_buffer))
-            self.in_ld = False
+        elif tag == "script":
+            if self.in_ld:
+                self.ld_json.append("".join(self.ld_buffer))
+                self.in_ld = False
+            self.in_script = False
+        elif tag == "style":
+            self.in_style = False
 
     def handle_data(self, data):
         if self.in_title:
@@ -276,10 +304,15 @@ class PageParser(HTMLParser):
             self.h2s[-1] += data
         if self.in_ld:
             self.ld_buffer.append(data)
+        elif not self.in_script and not self.in_style and data.strip():
+            self.text_parts.append(data.strip())
 
 
 def normalized_text(value):
-    return " ".join((value or "").split())
+    text = " ".join((value or "").split())
+    for punct in (".", ",", ";", ":", "?", "!"):
+        text = text.replace(f" {punct}", punct)
+    return text
 
 
 def add_issue(issues, file_path, message):
@@ -416,6 +449,17 @@ def audit_pages(issues):
         elif h1s[0] != page["h1"]:
             add_issue(issues, page["file"], f"h1 mismatch: {h1s[0]!r}")
 
+        if page["label"] == "Home":
+            visible_text = normalized_text(" ".join(parser.text_parts))
+            if "Frequently Asked Questions" not in visible_text:
+                add_issue(issues, page["file"], "missing homepage FAQ heading")
+            for question in HOME_FAQ_QUESTIONS:
+                if question not in visible_text:
+                    add_issue(issues, page["file"], f"missing visible FAQ question: {question}")
+            for answer in HOME_FAQ_ANSWERS:
+                if answer not in visible_text:
+                    add_issue(issues, page["file"], f"missing visible FAQ answer: {answer}")
+
         hrefs = set(parser.hrefs)
         for required in page["links"]:
             if required not in hrefs:
@@ -463,6 +507,30 @@ def audit_pages(issues):
                 forbidden = found_types & FORBIDDEN_SCHEMA
                 if forbidden:
                     add_issue(issues, page["file"], f"JSON-LD has forbidden schema types: {', '.join(sorted(forbidden))}")
+                if page["label"] == "Home":
+                    faq_entities = [
+                        item for item in walk_json(doc)
+                        if item.get("@type") == "FAQPage"
+                    ]
+                    if len(faq_entities) != 1:
+                        add_issue(issues, page["file"], f"expected one FAQPage entity, found {len(faq_entities)}")
+                    else:
+                        questions = []
+                        answers = []
+                        for entity in faq_entities[0].get("mainEntity", []):
+                            if isinstance(entity, dict) and entity.get("@type") == "Question":
+                                questions.append(entity.get("name"))
+                                answer = entity.get("acceptedAnswer", {})
+                                if answer.get("@type") != "Answer" or not answer.get("text"):
+                                    add_issue(issues, page["file"], f"FAQ question missing acceptedAnswer text: {entity.get('name')}")
+                                else:
+                                    answers.append(answer.get("text"))
+                        if questions != HOME_FAQ_QUESTIONS:
+                            add_issue(issues, page["file"], "FAQPage JSON-LD questions do not match visible FAQ questions")
+                        if answers != HOME_FAQ_ANSWERS:
+                            add_issue(issues, page["file"], "FAQPage JSON-LD answers do not match visible FAQ answers")
+                elif "FAQPage" in found_types:
+                    add_issue(issues, page["file"], "FAQPage JSON-LD is only expected on the homepage")
                 if page["label"] == "About":
                     person = find_person_entity(doc)
                     if person is None:
@@ -548,6 +616,8 @@ def audit_project_pages(issues):
         forbidden = found_types & FORBIDDEN_SCHEMA
         if forbidden:
             add_issue(issues, page["file"], f"project JSON-LD has forbidden schema types: {', '.join(sorted(forbidden))}")
+        if "FAQPage" in found_types:
+            add_issue(issues, page["file"], "FAQPage JSON-LD is only expected on the homepage")
         for value in jsonld_domain_values(doc):
             if not value.startswith("https://thebellevuehomes.com"):
                 add_issue(issues, page["file"], f"project JSON-LD URL/id is not canonical apex https: {value}")
