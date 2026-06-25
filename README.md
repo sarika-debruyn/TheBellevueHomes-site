@@ -22,6 +22,10 @@ npm run firebase:login
 ```bash
 npm run firebase:init
 ```
+   To reauthorize:
+```bash
+firebase login --reauth
+```
 
 4. Deploy:
 

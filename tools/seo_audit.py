@@ -29,14 +29,14 @@ PAGES = [
         "description": "Learn about The Bellevue Homes, a Chicago residential development team creating refined custom homes with thoughtful design, craftsmanship, and enduring elegance.",
         "h1": "About The Bellevue Homes",
         "links": ["/portfolio-1", "/contact"],
-        "schema": {"WebPage", "BreadcrumbList"},
+        "schema": {"WebPage", "BreadcrumbList", "Person"},
     },
     {
         "label": "Portfolio",
         "file": "site/portfolio-1.html",
         "canonical": "https://thebellevuehomes.com/portfolio-1",
         "title": "Chicago Luxury Home Portfolio | The Bellevue Homes",
-        "description": "View featured Bellevue Homes homes in Lakeview and Lincoln Square, including completed and under-construction luxury residences in Chicago.",
+        "description": "View featured Bellevue Homes residences in Lakeview and Lincoln Square, including completed and under-construction luxury home projects in Chicago.",
         "h1": "Featured Chicago Luxury Home Projects",
         "links": ["/gallery", "/contact"],
         "schema": {"WebPage", "BreadcrumbList"},
@@ -70,6 +70,49 @@ PAGES = [
         "h1": "Contact The Bellevue Homes",
         "links": ["/portfolio-1", "/gallery"],
         "schema": {"WebPage", "BreadcrumbList"},
+    },
+]
+
+PROJECT_PAGES = [
+    {
+        "label": "Lakeview Custom Home Project",
+        "file": "site/portfolio-collections/my-portfolio/custom-homes-showcase/index.html",
+        "canonical": "https://thebellevuehomes.com/portfolio-collections/my-portfolio/custom-homes-showcase/",
+        "title": "Lakeview Custom Home Project | The Bellevue Homes",
+        "description": "View a Lakeview Bellevue Homes project with 4,400 square feet, 6 bedrooms, 4.5 baths, and published under-construction project details.",
+        "h1": "Lakeview",
+    },
+    {
+        "label": "Lakeview Completed Residence",
+        "file": "site/portfolio-collections/my-portfolio/house/index.html",
+        "canonical": "https://thebellevuehomes.com/portfolio-collections/my-portfolio/house/",
+        "title": "Lakeview Completed Residence | The Bellevue Homes",
+        "description": "View a completed Lakeview Bellevue Homes residence with 4,400 square feet, 6 bedrooms, 4.5 baths, and published portfolio imagery.",
+        "h1": "Lakeview",
+    },
+    {
+        "label": "Lincoln Square Residence Under Construction",
+        "file": "site/portfolio-collections/my-portfolio/oakdale-house/index.html",
+        "canonical": "https://thebellevuehomes.com/portfolio-collections/my-portfolio/oakdale-house/",
+        "title": "Lincoln Square Residence Under Construction | The Bellevue Homes",
+        "description": "View an under-construction Lincoln Square Bellevue Homes residence with 5,620 square feet, 6 bedrooms, and 5.5 baths.",
+        "h1": "Lincoln Square",
+    },
+    {
+        "label": "Lincoln Square 5,500 Sq Ft Residence",
+        "file": "site/portfolio-collections/my-portfolio/wilson-1/index.html",
+        "canonical": "https://thebellevuehomes.com/portfolio-collections/my-portfolio/wilson-1/",
+        "title": "Lincoln Square 5,500 Sq Ft Residence | The Bellevue Homes",
+        "description": "View a completed Lincoln Square Bellevue Homes residence with 5,500 square feet, 6 bedrooms, 5.5 baths, and published project imagery.",
+        "h1": "Lincoln Square",
+    },
+    {
+        "label": "Lincoln Square 6,200 Sq Ft Residence",
+        "file": "site/portfolio-collections/my-portfolio/wilson-2/index.html",
+        "canonical": "https://thebellevuehomes.com/portfolio-collections/my-portfolio/wilson-2/",
+        "title": "Lincoln Square 6,200 Sq Ft Residence | The Bellevue Homes",
+        "description": "View a completed Lincoln Square Bellevue Homes residence with 6,200 square feet, 7 bedrooms, 5.5 baths, and published project imagery.",
+        "h1": "Lincoln Square",
     },
 ]
 
@@ -109,6 +152,49 @@ GENERIC_ALTS = {
     "exterior",
 }
 
+def joined(*parts):
+    return "".join(parts)
+
+
+BLOCKED_SOURCE_STRINGS = [
+    joined("OWNER", "_", "FULL", "_", "NAME"),
+    joined("OWNER", "_", "ROLE", "_", "TITLE"),
+    joined("OWNER", "_", "SHORT", "_", "BIO"),
+    joined("OWNER", "_", "SAME", "_", "AS", "_", "URLS"),
+    joined("REAL", "_", "OWNER", "_", "FULL", "_", "NAME"),
+    joined("REAL", "_", "OWNER", "_", "ROLE", "_", "TITLE"),
+    joined("REAL", "_", "OWNER", "_", "SHORT", "_", "BIO"),
+    joined("REAL", "_", "OWNER", "_", "SAME", "_", "AS", "_", "URLS"),
+    joined("APPROVED", "_", "OWNER", "_", "FULL", "_", "NAME"),
+    joined("APPROVED", "_", "OWNER", "_", "ROLE", "_", "TITLE"),
+    joined("APPROVED", "_", "OWNER", "_", "SHORT", "_", "BIO"),
+    joined("APPROVED", "_", "OWNER", "_", "SAME", "_", "AS", "_", "URLS"),
+    joined("place", "holder"),
+    joined("red", "acted"),
+    joined("T", "BD"),
+    joined("TO", "DO"),
+]
+
+BLOCKED_OLD_BRAND_STRINGS = [
+    joined("the", "bella", "vue", "group"),
+    joined("The ", "Bella", "vue", " Group"),
+    joined("Bella", "vue"),
+]
+
+OWNER_ENCODING_MARKERS = [
+    joined("\\u005f", "OWNER"),
+    joined("&#95;", "OWNER"),
+    joined("_", "OWNER", "_"),
+]
+
+SOURCE_SCAN_SUFFIXES = {".html", ".json", ".py", ".md", ".txt"}
+
+OWNER_NAME = "Anita Goyal"
+OWNER_JOB_TITLE = "Designer and Real Estate Developer"
+OWNER_DESCRIPTION = "Anita Goyal is a designer and real estate developer who leads The Bellevue Homes with a focus on refined residential design, thoughtful spatial planning, and elegant modern living. Her work brings together development discipline and a designer's eye for light, flow, proportion, and warmth, creating homes that feel sophisticated, functional, and deeply livable."
+OWNER_ID = "https://thebellevuehomes.com/#owner"
+ORGANIZATION_ID = "https://thebellevuehomes.com/#organization"
+
 FORBIDDEN_SCHEMA = {
     "LocalBusiness",
     "HomeAndConstructionBusiness",
@@ -130,7 +216,9 @@ class PageParser(HTMLParser):
         self.og = {}
         self.twitter = {}
         self.h1s = []
+        self.h2s = []
         self.in_h1 = False
+        self.in_h2 = False
         self.hrefs = []
         self.imgs = []
         self.ld_json = []
@@ -154,6 +242,9 @@ class PageParser(HTMLParser):
         elif tag == "h1":
             self.in_h1 = True
             self.h1s.append("")
+        elif tag == "h2":
+            self.in_h2 = True
+            self.h2s.append("")
         elif tag == "a":
             href = attrs.get("href")
             if href:
@@ -170,6 +261,8 @@ class PageParser(HTMLParser):
             self.in_title = False
         elif tag == "h1":
             self.in_h1 = False
+        elif tag == "h2":
+            self.in_h2 = False
         elif tag == "script" and self.in_ld:
             self.ld_json.append("".join(self.ld_buffer))
             self.in_ld = False
@@ -179,6 +272,8 @@ class PageParser(HTMLParser):
             self.title += data
         if self.in_h1 and self.h1s:
             self.h1s[-1] += data
+        if self.in_h2 and self.h2s:
+            self.h2s[-1] += data
         if self.in_ld:
             self.ld_buffer.append(data)
 
@@ -221,9 +316,58 @@ def jsonld_domain_values(doc):
     return values
 
 
+
+def find_person_entity(doc):
+    for item in walk_json(doc):
+        item_type = item.get("@type")
+        types = item_type if isinstance(item_type, list) else [item_type]
+        if "Person" in types and item.get("@id") == OWNER_ID:
+            return item
+    return None
+
+
+def entity_refers_to_org(value):
+    if isinstance(value, dict):
+        return value.get("@id") == ORGANIZATION_ID
+    if isinstance(value, list):
+        return any(entity_refers_to_org(item) for item in value)
+    if isinstance(value, str):
+        return value == ORGANIZATION_ID
+    return False
+
 def is_internal_href(href):
     parsed = urlparse(href)
     return not parsed.scheme and not parsed.netloc and href.startswith("/")
+
+
+def source_files_to_scan():
+    skip_dirs = {".git", ".claude", "node_modules", "__pycache__", joined("www.", "the", "bella", "vue", "group", ".com")}
+    for item in ROOT.rglob("*"):
+        if not item.is_file():
+            continue
+        if any(part in skip_dirs for part in item.parts):
+            continue
+        if item.suffix in SOURCE_SCAN_SUFFIXES or item.name in {"firebase.json", "package.json", ".firebaserc"}:
+            yield item
+
+
+def audit_source_owner_tokens(issues):
+    for file_path in source_files_to_scan():
+        rel_path = str(file_path.relative_to(ROOT))
+        text = file_path.read_text(encoding="utf-8", errors="ignore")
+        for blocked in BLOCKED_SOURCE_STRINGS:
+            if blocked in text:
+                add_issue(issues, rel_path, "blocked owner source token is present")
+        for marker in OWNER_ENCODING_MARKERS:
+            if marker in text:
+                add_issue(issues, rel_path, "encoded or constructed owner marker is present")
+        text_lower = text.lower()
+        for blocked in BLOCKED_OLD_BRAND_STRINGS:
+            if blocked.lower() in text_lower:
+                add_issue(issues, rel_path, "old brand/domain reference is present")
+        if file_path.suffix == ".js" and "owner" in text.lower():
+            if any(marker in text for marker in ("innerHTML", "textContent", "insertAdjacentHTML")):
+                add_issue(issues, rel_path, "owner text appears to be injected by script")
 
 
 def audit_pages(issues):
@@ -236,9 +380,18 @@ def audit_pages(issues):
             add_issue(issues, page["file"], "page file is missing")
             continue
 
+        html = file_path.read_text(encoding="utf-8")
         parser = PageParser()
-        parser.feed(file_path.read_text(encoding="utf-8"))
+        parser.feed(html)
         parsed_pages.append((page, parser))
+
+        if page["label"] == "About":
+            if OWNER_NAME not in html:
+                add_issue(issues, page["file"], f"missing visible owner name: {OWNER_NAME}")
+            if OWNER_JOB_TITLE not in html:
+                add_issue(issues, page["file"], "missing visible owner job title")
+            if OWNER_DESCRIPTION not in html:
+                add_issue(issues, page["file"], "missing visible owner description")
 
         if normalized_text(parser.title) != page["title"]:
             add_issue(issues, page["file"], f"title mismatch: {normalized_text(parser.title)!r}")
@@ -310,6 +463,26 @@ def audit_pages(issues):
                 forbidden = found_types & FORBIDDEN_SCHEMA
                 if forbidden:
                     add_issue(issues, page["file"], f"JSON-LD has forbidden schema types: {', '.join(sorted(forbidden))}")
+                if page["label"] == "About":
+                    person = find_person_entity(doc)
+                    if person is None:
+                        add_issue(issues, page["file"], "JSON-LD missing Anita Goyal Person entity")
+                    else:
+                        if person.get("name") != OWNER_NAME:
+                            add_issue(issues, page["file"], "owner Person name mismatch")
+                        if person.get("jobTitle") != OWNER_JOB_TITLE:
+                            add_issue(issues, page["file"], "owner Person jobTitle mismatch")
+                        if person.get("description") != OWNER_DESCRIPTION:
+                            add_issue(issues, page["file"], "owner Person description mismatch")
+                        if "sameAs" in person:
+                            add_issue(issues, page["file"], "owner Person must not include sameAs without approved URLs")
+                        connected = any(
+                            entity_refers_to_org(person.get(key))
+                            for key in ("worksFor", "memberOf", "affiliation")
+                        )
+                        if not connected:
+                            add_issue(issues, page["file"], "owner Person is not connected to The Bellevue Homes organization")
+
                 for value in jsonld_domain_values(doc):
                     if not value.startswith("https://thebellevuehomes.com"):
                         add_issue(issues, page["file"], f"JSON-LD URL/id is not canonical apex https: {value}")
@@ -322,6 +495,64 @@ def audit_pages(issues):
         add_issue(issues, high_priority[0][0], f"priority image must use loading=\"eager\": {high_priority[0][1]}")
 
     return parsed_pages
+
+
+
+def audit_project_pages(issues):
+    for page in PROJECT_PAGES:
+        file_path = ROOT / page["file"]
+        if not file_path.exists():
+            add_issue(issues, page["file"], "project page file is missing")
+            continue
+
+        html = file_path.read_text(encoding="utf-8")
+        parser = PageParser()
+        parser.feed(html)
+
+        if normalized_text(parser.title) != page["title"]:
+            add_issue(issues, page["file"], f"project title mismatch: {normalized_text(parser.title)!r}")
+        if parser.description != page["description"]:
+            add_issue(issues, page["file"], "project meta description mismatch")
+        if parser.canonical != page["canonical"]:
+            add_issue(issues, page["file"], f"project canonical mismatch: {parser.canonical!r}")
+
+        h1s = [normalized_text(h1) for h1 in parser.h1s]
+        if len(h1s) != 1:
+            add_issue(issues, page["file"], f"expected exactly one project h1, found {len(h1s)}")
+        elif h1s[0] != page["h1"]:
+            add_issue(issues, page["file"], f"project h1 mismatch: {h1s[0]!r}")
+
+        h2s = [normalized_text(h2) for h2 in parser.h2s if normalized_text(h2)]
+        if not h2s:
+            add_issue(issues, page["file"], "project page must include at least one h2")
+
+        hrefs = set(parser.hrefs)
+        for required in {"/portfolio-1", "/contact"}:
+            if required not in hrefs:
+                add_issue(issues, page["file"], f"missing project internal link href {required}")
+
+        if len(parser.ld_json) != 1:
+            add_issue(issues, page["file"], f"expected exactly one project JSON-LD block, found {len(parser.ld_json)}")
+            continue
+
+        try:
+            doc = json.loads(parser.ld_json[0])
+        except json.JSONDecodeError as exc:
+            add_issue(issues, page["file"], f"project JSON-LD does not parse: {exc}")
+            continue
+
+        found_types = schema_types(doc)
+        for required_type in {"WebPage", "BreadcrumbList"}:
+            if required_type not in found_types:
+                add_issue(issues, page["file"], f"project JSON-LD missing {required_type}")
+        forbidden = found_types & FORBIDDEN_SCHEMA
+        if forbidden:
+            add_issue(issues, page["file"], f"project JSON-LD has forbidden schema types: {', '.join(sorted(forbidden))}")
+        for value in jsonld_domain_values(doc):
+            if not value.startswith("https://thebellevuehomes.com"):
+                add_issue(issues, page["file"], f"project JSON-LD URL/id is not canonical apex https: {value}")
+            if "www.thebellevuehomes.com" in value:
+                add_issue(issues, page["file"], f"project JSON-LD URL/id uses www: {value}")
 
 
 def audit_robots(issues):
@@ -392,7 +623,9 @@ def audit_firebase(issues):
 
 def main():
     issues = []
+    audit_source_owner_tokens(issues)
     audit_pages(issues)
+    audit_project_pages(issues)
     audit_robots(issues)
     audit_sitemap(issues)
     audit_firebase(issues)

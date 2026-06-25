@@ -34,7 +34,7 @@ PAGES = [
         "path": "/portfolio-1",
         "canonical": "https://thebellevuehomes.com/portfolio-1",
         "title": "Chicago Luxury Home Portfolio | The Bellevue Homes",
-        "description": "View featured Bellevue Homes homes in Lakeview and Lincoln Square, including completed and under-construction luxury residences in Chicago.",
+        "description": "View featured Bellevue Homes residences in Lakeview and Lincoln Square, including completed and under-construction luxury home projects in Chicago.",
         "h1": "Featured Chicago Luxury Home Projects",
     },
     {
