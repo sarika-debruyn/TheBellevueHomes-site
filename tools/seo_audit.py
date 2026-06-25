@@ -48,7 +48,7 @@ PAGES = [
         "title": "Luxury Home Design Gallery | The Bellevue Homes",
         "description": "Explore Bellevue Homes interiors, kitchens, bedrooms, bathrooms, living spaces, and custom residential details from luxury homes in Chicago.",
         "h1": "Luxury Home Design Gallery",
-        "links": ["/portfolio-1", "/contact"],
+        "links": ["/portfolio-1", "/about", "/contact"],
         "schema": {"WebPage", "BreadcrumbList"},
     },
     {
@@ -194,6 +194,14 @@ OWNER_JOB_TITLE = "Designer and Real Estate Developer"
 OWNER_DESCRIPTION = "Anita Goyal is a designer and real estate developer who leads The Bellevue Homes with a focus on refined residential design, thoughtful spatial planning, and elegant modern living. Her work brings together development discipline and a designer's eye for light, flow, proportion, and warmth, creating homes that feel sophisticated, functional, and deeply livable."
 OWNER_ID = "https://thebellevuehomes.com/#owner"
 ORGANIZATION_ID = "https://thebellevuehomes.com/#organization"
+
+GALLERY_REQUIRED_COPY = [
+    "Refined Interiors",
+    "Kitchens and Gathering Spaces",
+    "Baths and Finishes",
+    "light, flow, proportion, and warmth",
+    "design-led residential development",
+]
 
 HOME_FAQ_QUESTIONS = [
     "What types of homes does The Bellevue Homes create?",
@@ -459,6 +467,11 @@ def audit_pages(issues):
             for answer in HOME_FAQ_ANSWERS:
                 if answer not in visible_text:
                     add_issue(issues, page["file"], f"missing visible FAQ answer: {answer}")
+        elif page["label"] == "Gallery":
+            visible_text = normalized_text(" ".join(parser.text_parts))
+            for required in GALLERY_REQUIRED_COPY:
+                if required not in visible_text:
+                    add_issue(issues, page["file"], f"missing required Gallery copy: {required}")
 
         hrefs = set(parser.hrefs)
         for required in page["links"]:
