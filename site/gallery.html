@@ -3,50 +3,42 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Luxury Home Design Gallery | The Bellevue Homes</title>
-  <meta name="description" content="Explore Bellevue Homes interiors, kitchens, bedrooms, bathrooms, living spaces, and custom residential details from luxury homes in Chicago.">
+  <title>Luxury Home Design Gallery — Chicago Interiors | The Bellevue Homes</title>
+  <meta name="description" content="Browse kitchens, primary suites, spa baths, and custom millwork from Bellevue Homes luxury residences in Chicago's Lakeview and Lincoln Square neighborhoods.">
   <link rel="canonical" href="https://thebellevuehomes.com/gallery">
-  <meta property="og:title" content="Luxury Home Design Gallery | The Bellevue Homes">
-  <meta property="og:description" content="Explore Bellevue Homes interiors, kitchens, bedrooms, bathrooms, living spaces, and custom residential details from luxury homes in Chicago.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="The Bellevue Homes">
+  <meta property="og:title" content="Luxury Home Design Gallery — Chicago Interiors | The Bellevue Homes">
+  <meta property="og:description" content="Kitchens, primary suites, spa baths, and custom millwork from Bellevue Homes luxury residences in Chicago.">
   <meta property="og:url" content="https://thebellevuehomes.com/gallery">
-  <meta name="twitter:title" content="Luxury Home Design Gallery | The Bellevue Homes">
-  <meta name="twitter:description" content="Explore Bellevue Homes interiors, kitchens, bedrooms, bathrooms, living spaces, and custom residential details from luxury homes in Chicago.">
+  <meta property="og:image" content="https://thebellevuehomes.com/assets/images/gallery-original/open-kitchen-dark-island-pendant-lights.avif">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Luxury Home Design Gallery — Chicago Interiors | The Bellevue Homes">
+  <meta name="twitter:description" content="Kitchens, primary suites, spa baths, and custom millwork from Bellevue Homes luxury residences in Chicago.">
+  <meta name="twitter:image" content="https://thebellevuehomes.com/assets/images/gallery-original/open-kitchen-dark-island-pendant-lights.avif">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Jost:wght@300;400;500;600&display=swap">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "WebPage",
+        "@type": ["WebPage", "ImageGallery"],
         "@id": "https://thebellevuehomes.com/gallery#webpage",
         "url": "https://thebellevuehomes.com/gallery",
-        "name": "Luxury Home Design Gallery | The Bellevue Homes",
-        "description": "Explore Bellevue Homes interiors, kitchens, bedrooms, bathrooms, living spaces, and custom residential details from luxury homes in Chicago.",
-        "isPartOf": {
-          "@id": "https://thebellevuehomes.com/#website"
-        },
-        "about": {
-          "@id": "https://thebellevuehomes.com/#organization"
-        },
-        "breadcrumb": {
-          "@id": "https://thebellevuehomes.com/gallery#breadcrumb"
-        }
+        "name": "Luxury Home Design Gallery — Chicago Interiors | The Bellevue Homes",
+        "description": "Browse kitchens, primary suites, spa baths, and custom millwork from Bellevue Homes luxury residences in Chicago's Lakeview and Lincoln Square neighborhoods.",
+        "isPartOf": { "@id": "https://thebellevuehomes.com/#website" },
+        "about": { "@id": "https://thebellevuehomes.com/#organization" },
+        "breadcrumb": { "@id": "https://thebellevuehomes.com/gallery#breadcrumb" }
       },
       {
         "@type": "BreadcrumbList",
         "@id": "https://thebellevuehomes.com/gallery#breadcrumb",
         "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Home",
-            "item": "https://thebellevuehomes.com/"
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "Gallery",
-            "item": "https://thebellevuehomes.com/gallery"
-          }
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://thebellevuehomes.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Gallery", "item": "https://thebellevuehomes.com/gallery" }
         ]
       }
     ]
@@ -56,11 +48,15 @@
   <script defer src="/assets/site.js"></script>
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
   <div class="site-shell">
     <header class="site-header">
       <div class="site-header__bar">
-        <a class="brand" href="/">The Bellevue Homes</a>
-        <nav class="nav" aria-label="Site">
+        <a class="brand" href="/" aria-label="The Bellevue Homes — home">The Bellevue Homes</a>
+        <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-label="Open menu" aria-controls="site-nav">
+          <span></span><span></span><span></span>
+        </button>
+        <nav class="nav" id="site-nav" aria-label="Site">
           <a href="/">Home</a>
           <a href="/about">About</a>
           <a href="/portfolio-1">Portfolio</a>
@@ -71,91 +67,135 @@
       </div>
     </header>
 
-    <main>
+    <main id="main">
       <section class="gallery-page">
         <div class="gallery-stage">
-          <h1 class="page-eyebrow eyebrow">Luxury Home Design Gallery</h1>
-          <p class="page-intro">Browse interior and exterior details from <a href="/portfolio-1">Bellevue Homes luxury homes</a>, including kitchens, bedrooms, bathrooms, living spaces, family rooms, custom millwork, and carefully composed design moments. This gallery highlights the craftsmanship, material selections, light, proportion, and spatial flow that define our Chicago residences. For design-led leadership behind the work, meet <a href="/about">Anita Goyal</a>, or <a href="/contact">contact The Bellevue Homes</a> to discuss a residence with this level of detail.</p>
+          <div class="page-hero reveal">
+            <span class="eyebrow">Gallery</span>
+            <h1>Luxury Home Design Gallery</h1>
+            <p class="lead">Interior and exterior details from <a class="link-inline" href="/portfolio-1">Bellevue Homes residences</a> in Lakeview and Lincoln Square &mdash; kitchens, primary suites, spa baths, and custom millwork. Select any image to view it full screen.</p>
+          </div>
+
+          <div class="gallery-row">
+            <div class="gallery-panel reveal" data-lightbox style="--grow:461;"><img src="/assets/images/gallery-original/neutral-primary-bedroom-mirrored-wall-art.avif" alt="Neutral primary bedroom with mirrored wall art in a Bellevue Homes luxury Chicago residence" loading="eager" decoding="async" width="461" height="470"></div>
+            <div class="gallery-panel reveal" data-lightbox style="--grow:459;"><img src="/assets/images/gallery-original/open-kitchen-dark-island-pendant-lights.avif" alt="Open-concept luxury kitchen with dark island and pendant lights in a Chicago custom home" loading="eager" decoding="async" width="459" height="470"></div>
+          </div>
+
+          <div class="gallery-row">
+            <div class="gallery-panel reveal" data-lightbox style="--grow:180;"><img src="/assets/images/gallery-original/black-vanity-powder-room-brass-mirror.avif" alt="Powder room with black vanity and brass mirror in a Bellevue Homes residence" loading="lazy" decoding="async" width="180" height="470"></div>
+            <div class="gallery-panel reveal" data-lightbox style="--grow:540;"><img src="/assets/images/gallery-original/wood-cabinet-kitchen-breakfast-bar.avif" alt="Custom wood cabinetry kitchen with breakfast bar seating in a Chicago luxury home" loading="lazy" decoding="async" width="540" height="470"></div>
+            <div class="gallery-panel reveal" data-lightbox style="--grow:180;"><img src="/assets/images/gallery-original/herringbone-hallway-with-arched-doorways.avif" alt="Herringbone hardwood hallway with arched doorways in a Bellevue custom home" loading="lazy" decoding="async" width="285" height="470"></div>
+          </div>
+
+          <div class="gallery-row">
+            <div class="gallery-panel reveal" data-lightbox style="--grow:270;"><img src="/assets/images/gallery-original/freestanding-tub-bathroom-window-view.avif" alt="Spa bathroom with freestanding tub and window view in a Chicago luxury residence" loading="lazy" decoding="async" width="270" height="470"></div>
+            <div class="gallery-panel reveal" data-lightbox style="--grow:333;"><img src="/assets/images/gallery-original/neutral-family-room-window-seating.avif" alt="Neutral family room with built-in window seating in a Bellevue Homes residence" loading="lazy" decoding="async" width="333" height="470"></div>
+            <div class="gallery-panel reveal" data-lightbox style="--grow:297;"><img src="/assets/images/gallery-original/dining-nook-green-chairs-wall-art.avif" alt="Dining nook with green upholstered chairs and wall art in a Chicago custom home" loading="lazy" decoding="async" width="297" height="470"></div>
+          </div>
+
+          <div class="gallery-row">
+            <div class="gallery-panel reveal" data-lightbox style="--grow:461;"><img src="/assets/images/gallery-original/fireplace-living-room-arched-mirror.avif" alt="Luxury living room with fireplace and arched mirror in a Bellevue Homes residence" loading="lazy" decoding="async" width="461" height="470"></div>
+            <div class="gallery-panel reveal" data-lightbox style="--grow:459;"><img src="/assets/images/gallery-original/bedroom-fireplace-glass-doors.avif" alt="Bedroom with fireplace and glass doors in a Chicago luxury custom home" loading="lazy" decoding="async" width="459" height="470"></div>
+          </div>
+
+          <div class="gallery-row">
+            <div class="gallery-panel reveal" data-lightbox style="--grow:297;"><img src="/assets/images/gallery-original/long-bathroom-dark-floor-tub.avif" alt="Long spa bathroom with dark tile floor and freestanding tub in a Bellevue residence" loading="lazy" decoding="async" width="297" height="470"></div>
+            <div class="gallery-panel reveal" data-lightbox style="--grow:306;"><img src="/assets/images/gallery-original/double-vanity-bathroom-sconce-lighting.avif" alt="Double vanity bathroom with sconce lighting in a Chicago luxury home" loading="lazy" decoding="async" width="306" height="470"></div>
+            <div class="gallery-panel reveal" data-lightbox style="--grow:297;"><img src="/assets/images/gallery-original/dark-island-kitchen-gold-pendants.avif" alt="Custom kitchen with dark island and gold pendant lighting in a Bellevue Homes residence" loading="lazy" decoding="async" width="297" height="470"></div>
+          </div>
+
+          <div class="gallery-row">
+            <div class="gallery-panel reveal" data-lightbox style="--grow:690;"><img src="/assets/images/gallery-original/vaulted-bedroom-globe-light-fixtures.avif" alt="Vaulted bedroom with globe light fixtures in a Chicago luxury custom home" loading="lazy" decoding="async" width="690" height="470"></div>
+            <div class="gallery-panel reveal" data-lightbox style="--grow:230;"><img src="/assets/images/gallery-original/walk-in-shower-black-fixtures.avif" alt="Walk-in shower with matte black fixtures in a Bellevue Homes spa bathroom" loading="lazy" decoding="async" width="361" height="470"></div>
+          </div>
+
+          <div class="gallery-row">
+            <div class="gallery-panel reveal" data-lightbox style="--grow:276;"><img src="/assets/images/gallery-original/laundry-room-white-cabinetry-brass-faucet.avif" alt="Laundry room with white custom cabinetry and brass faucet in a Chicago residence" loading="lazy" decoding="async" width="276" height="470"></div>
+            <div class="gallery-panel reveal" data-lightbox style="--grow:644;"><img src="/assets/images/gallery-original/bright-landing-window-bench-built-ins.avif" alt="Bright stair landing with window bench and built-in shelving in a Bellevue custom home" loading="lazy" decoding="async" width="644" height="470"></div>
+          </div>
+
+          <div class="gallery-row">
+            <div class="gallery-panel reveal" data-lightbox style="--grow:607;"><img src="/assets/images/gallery-original/blue-mudroom-staircase-built-ins.avif" alt="Blue mudroom with staircase and built-in storage in a Chicago luxury home" loading="lazy" decoding="async" width="607" height="470"></div>
+            <div class="gallery-panel gallery-panel--tile reveal" data-lightbox style="--grow:313; background-image: url('/assets/images/gallery-original/window-dining-table-greenery-tile.avif');" role="img" aria-label="Dining table near window with greenery in a Bellevue Homes residence"></div>
+          </div>
+
+          <div class="gallery-row">
+            <div class="gallery-panel reveal" data-lightbox style="--grow:322;"><img src="/assets/images/gallery-original/glass-shower-bathroom-gray-vanity.avif" alt="Bathroom with frameless glass shower and gray vanity in a Chicago custom residence" loading="lazy" decoding="async" width="322" height="470"></div>
+            <div class="gallery-panel reveal" data-lightbox style="--grow:598;"><img src="/assets/images/gallery-original/white-kitchen-range-subway-tile.avif" alt="White luxury kitchen range wall with subway tile in a Bellevue Homes residence" loading="lazy" decoding="async" width="598" height="470"></div>
+          </div>
+
+          <div class="gallery-row">
+            <div class="gallery-panel reveal" data-lightbox style="--grow:300;"><img src="/assets/images/Kitchen01.avif" alt="Custom kitchen interior in a Bellevue Homes luxury Chicago residence" loading="lazy" decoding="async" width="640" height="480"></div>
+            <div class="gallery-panel reveal" data-lightbox style="--grow:300;"><img src="/assets/images/Wilson3UnstagedLivingRoom01.avif" alt="Unstaged living room with large windows in a Bellevue Homes Lincoln Square residence" loading="lazy" decoding="async" width="640" height="480"></div>
+            <div class="gallery-panel reveal" data-lightbox style="--grow:300;"><img src="/assets/images/Bath.avif" alt="Luxury bathroom interior in a Bellevue Homes Chicago residence" loading="lazy" decoding="async" width="640" height="480"></div>
+          </div>
 
           <section class="gallery-copy" aria-label="Gallery design notes">
-            <div class="gallery-copy__item">
-              <h2 class="page-eyebrow eyebrow">Refined Interiors</h2>
-              <p class="page-intro">The gallery brings together interiors, living spaces, and quiet architectural moments that show how refined residential design depends on light, flow, proportion, and warmth.</p>
+            <div class="gallery-copy__item reveal">
+              <h2>Refined Interiors</h2>
+              <p>The gallery brings together interiors, living spaces, and quiet architectural moments that show how refined residential design depends on light, flow, proportion, and warmth.</p>
             </div>
-            <div class="gallery-copy__item">
-              <h2 class="page-eyebrow eyebrow">Kitchens and Gathering Spaces</h2>
-              <p class="page-intro">Kitchen and gathering-space images highlight the role of cabinetry, islands, seating, and natural circulation in custom homes and bespoke residences.</p>
+            <div class="gallery-copy__item reveal">
+              <h2>Kitchens and Gathering Spaces</h2>
+              <p>Kitchen and gathering-space images highlight the role of cabinetry, islands, seating, and natural circulation in custom homes and bespoke residences.</p>
             </div>
-            <div class="gallery-copy__item">
-              <h2 class="page-eyebrow eyebrow">Baths and Finishes</h2>
-              <p class="page-intro">Baths, vanities, fixtures, and finish details show the visual discipline behind transformations and design-led residential development.</p>
+            <div class="gallery-copy__item reveal">
+              <h2>Baths and Finishes</h2>
+              <p>Baths, vanities, fixtures, and finish details show the visual discipline behind transformations and design-led residential development.</p>
             </div>
           </section>
 
-          <div class="gallery-row">
-            <div class="gallery-panel" style="--grow:461;"><img src="/assets/images/gallery-original/neutral-primary-bedroom-mirrored-wall-art.avif" alt="Neutral primary bedroom with mirrored wall art in a Bellevue residence" loading="eager" decoding="async" width="461" height="470"></div>
-            <div class="gallery-panel" style="--grow:459;"><img src="/assets/images/gallery-original/open-kitchen-dark-island-pendant-lights.avif" alt="Open kitchen with dark island and pendant lights" loading="eager" decoding="async" width="459" height="470"></div>
+          <div class="cta-row reveal" style="margin-top: var(--s-4); justify-content: center;">
+            <a class="btn" href="/contact">Design a home like this</a>
+            <a class="btn-text" href="/portfolio-1">See the full projects</a>
           </div>
-
-          <div class="gallery-row">
-            <div class="gallery-panel" style="--grow:180;"><img src="/assets/images/gallery-original/black-vanity-powder-room-brass-mirror.avif" alt="Powder room with black vanity and brass mirror" loading="lazy" decoding="async" width="180" height="470"></div>
-            <div class="gallery-panel" style="--grow:540;"><img src="/assets/images/gallery-original/wood-cabinet-kitchen-breakfast-bar.avif" alt="Kitchen with wood cabinetry and breakfast bar seating" loading="lazy" decoding="async" width="540" height="470"></div>
-            <div class="gallery-panel" style="--grow:180;"><img src="/assets/images/gallery-original/herringbone-hallway-with-arched-doorways.avif" alt="Herringbone hallway with arched doorways in a Bellevue home" loading="lazy" decoding="async" width="285" height="470"></div>
-          </div>
-
-          <div class="gallery-row">
-            <div class="gallery-panel" style="--grow:270;"><img src="/assets/images/gallery-original/freestanding-tub-bathroom-window-view.avif" alt="Bathroom with freestanding tub and window view" loading="lazy" decoding="async" width="270" height="470"></div>
-            <div class="gallery-panel" style="--grow:333;"><img src="/assets/images/gallery-original/neutral-family-room-window-seating.avif" alt="Neutral family room with window seating in a Bellevue residence" loading="lazy" decoding="async" width="333" height="470"></div>
-            <div class="gallery-panel" style="--grow:297;"><img src="/assets/images/gallery-original/dining-nook-green-chairs-wall-art.avif" alt="Dining nook with green chairs and wall art" loading="lazy" decoding="async" width="297" height="470"></div>
-          </div>
-
-          <div class="gallery-row">
-            <div class="gallery-panel" style="--grow:461;"><img src="/assets/images/gallery-original/fireplace-living-room-arched-mirror.avif" alt="Living room with fireplace and arched mirror" loading="lazy" decoding="async" width="461" height="470"></div>
-            <div class="gallery-panel" style="--grow:459;"><img src="/assets/images/gallery-original/bedroom-fireplace-glass-doors.avif" alt="Bedroom with fireplace and glass doors" loading="lazy" decoding="async" width="459" height="470"></div>
-          </div>
-
-          <div class="gallery-row">
-            <div class="gallery-panel" style="--grow:297;"><img src="/assets/images/gallery-original/long-bathroom-dark-floor-tub.avif" alt="Long bathroom with dark floor and freestanding tub" loading="lazy" decoding="async" width="297" height="470"></div>
-            <div class="gallery-panel" style="--grow:306;"><img src="/assets/images/gallery-original/double-vanity-bathroom-sconce-lighting.avif" alt="Bathroom double vanity with sconce lighting" loading="lazy" decoding="async" width="306" height="470"></div>
-            <div class="gallery-panel" style="--grow:297;"><img src="/assets/images/gallery-original/dark-island-kitchen-gold-pendants.avif" alt="Kitchen with dark island and gold pendant lights" loading="lazy" decoding="async" width="297" height="470"></div>
-          </div>
-
-          <div class="gallery-row">
-            <div class="gallery-panel" style="--grow:690;"><img src="/assets/images/gallery-original/vaulted-bedroom-globe-light-fixtures.avif" alt="Vaulted bedroom with globe light fixtures" loading="lazy" decoding="async" width="690" height="470"></div>
-            <div class="gallery-panel" style="--grow:230;"><img src="/assets/images/gallery-original/walk-in-shower-black-fixtures.avif" alt="Walk-in shower with black fixtures" loading="lazy" decoding="async" width="361" height="470"></div>
-          </div>
-
-          <div class="gallery-row">
-            <div class="gallery-panel" style="--grow:276;"><img src="/assets/images/gallery-original/laundry-room-white-cabinetry-brass-faucet.avif" alt="Laundry room with white cabinetry and brass faucet" loading="lazy" decoding="async" width="276" height="470"></div>
-            <div class="gallery-panel" style="--grow:644;"><img src="/assets/images/gallery-original/bright-landing-window-bench-built-ins.avif" alt="Bright landing with window bench and built-in shelving" loading="lazy" decoding="async" width="644" height="470"></div>
-          </div>
-
-          <div class="gallery-row">
-            <div class="gallery-panel" style="--grow:607;"><img src="/assets/images/gallery-original/blue-mudroom-staircase-built-ins.avif" alt="Blue mudroom with staircase and built-in storage" loading="lazy" decoding="async" width="607" height="470"></div>
-            <div class="gallery-panel gallery-panel--tile" style="--grow:313; background-image: url('/assets/images/gallery-original/window-dining-table-greenery-tile.avif');" role="img" aria-label="Dining table near window with greenery"></div>
-          </div>
-
-          <div class="gallery-row">
-            <div class="gallery-panel" style="--grow:322;"><img src="/assets/images/gallery-original/glass-shower-bathroom-gray-vanity.avif" alt="Bathroom with glass shower and gray vanity" loading="lazy" decoding="async" width="322" height="470"></div>
-            <div class="gallery-panel" style="--grow:598;"><img src="/assets/images/gallery-original/white-kitchen-range-subway-tile.avif" alt="White kitchen range wall with subway tile" loading="lazy" decoding="async" width="598" height="470"></div>
-          </div>
-
-          <div class="gallery-row">
-            <div class="gallery-panel" style="--grow:300;"><img src="/assets/images/Kitchen01.avif" alt="Kitchen interior in a Bellevue Homes residence" loading="lazy" decoding="async" width="640" height="480"></div>
-            <div class="gallery-panel" style="--grow:300;"><img src="/assets/images/Wilson3UnstagedLivingRoom01.avif" alt="Unstaged Wilson living room in a Bellevue Homes residence" loading="lazy" decoding="async" width="640" height="480"></div>
-            <div class="gallery-panel" style="--grow:300;"><img src="/assets/images/Bath.avif" alt="Bathroom interior in a Bellevue Homes residence" loading="lazy" decoding="async" width="640" height="480"></div>
-          </div>
-
         </div>
       </section>
     </main>
 
     <footer class="site-footer">
       <div class="site-footer__inner">
-        <h2 class="site-footer__title"><span>GET IN</span><span>TOUCH</span></h2>
-        <div class="site-footer__links">
-          <div class="site-footer__email"><a href="mailto:info@thebellevuehomes.com">info@thebellevuehomes.com</a></div>
-          <div class="site-footer__contact-link"><a href="/contact">Contact Us</a></div>
+        <div class="site-footer__top">
+          <div>
+            <h2 class="site-footer__title">Build something<br>enduring in Chicago.</h2>
+            <p class="site-footer__lede">Custom estates, bespoke residences, and transformations across Chicago&rsquo;s North Side.</p>
+            <p class="site-footer__email"><a href="mailto:info@thebellevuehomes.com">info@thebellevuehomes.com</a></p>
+          </div>
+          <nav class="site-footer__nav" aria-label="Footer">
+            <div class="site-footer__col">
+              <h3>Explore</h3>
+              <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/portfolio-1">Portfolio</a></li>
+                <li><a href="/gallery">Gallery</a></li>
+                <li><a href="/testimonials">Testimonials</a></li>
+                <li><a href="/contact">Contact</a></li>
+              </ul>
+            </div>
+            <div class="site-footer__col">
+              <h3>Projects</h3>
+              <ul>
+                <li><a href="/portfolio-collections/my-portfolio/custom-homes-showcase">Lakeview Custom Home</a></li>
+                <li><a href="/portfolio-collections/my-portfolio/house">Lakeview Modern Residence</a></li>
+                <li><a href="/portfolio-collections/my-portfolio/wilson-2">Lincoln Square Grand Residence</a></li>
+                <li><a href="/portfolio-collections/my-portfolio/wilson-1">Lincoln Square Classic Residence</a></li>
+                <li><a href="/portfolio-collections/my-portfolio/oakdale-house">The Oakdale House</a></li>
+              </ul>
+            </div>
+            <div class="site-footer__col">
+              <h3>Work with us</h3>
+              <ul>
+                <li><a href="/contact">Homeowners &mdash; start a residence</a></li>
+                <li><a href="/#investors">Investors &mdash; track record</a></li>
+                <li><a href="/#brokers">Brokers &amp; agents &mdash; partner</a></li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+        <div class="site-footer__bottom">
+          <span>&copy; <span data-current-year>2026</span> The Bellevue Homes &middot; Chicago, Illinois</span>
+          <span>Designer-led residential development by Anita Goyal</span>
         </div>
       </div>
     </footer>
