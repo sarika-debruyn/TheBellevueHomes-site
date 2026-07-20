@@ -6,6 +6,12 @@
       "runtimeExecutable": "npx",
       "runtimeArgs": ["serve", "site", "-l", "4173"],
       "port": 4173
+    },
+    {
+      "name": "firebase-hosting",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["firebase-tools", "emulators:start", "--only", "hosting"],
+      "port": 5000
     }
   ]
 }
