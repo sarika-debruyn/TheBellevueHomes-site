@@ -23,8 +23,8 @@
   --ok: #4a6741;
 
   /* Typography */
-  --font-display: "Cormorant Garamond", "Cormorant", Didot, "Bodoni MT", serif;
-  --font-body: "Jost", "Century Gothic", "Futura", "Helvetica Neue", sans-serif;
+  --font-display: "Fraunces", "Cormorant Garamond", Georgia, serif;
+  --font-body: "Manrope", "Jost", "Helvetica Neue", sans-serif;
   --font-brand: "Bodoni Moda", "Bodoni 72", Didot, serif;
 
   --text-display: clamp(2.5rem, 1.6rem + 4vw, 4.5rem);   /* 40 → 72 */
@@ -108,6 +108,7 @@ h1, h2, h3 {
   margin: 0;
   font-family: var(--font-display);
   font-weight: 400;
+  font-optical-sizing: auto;
   color: inherit;
 }
 
@@ -654,7 +655,7 @@ h1, h2, h3 {
   letter-spacing: 0.02em;
   text-transform: none;
   color: #fff;
-  margin: 0.35rem 0 var(--s-3);
+  margin: 0 0 var(--s-3);
 }
 
 .category__copy .eyebrow { color: var(--accent); }
@@ -758,21 +759,40 @@ h1, h2, h3 {
    Page hero (inner pages)
    -------------------------------------------------------------------------- */
 
-.page-hero { padding: var(--s-5) 0 var(--s-4); }
+.page-hero {
+  display: grid;
+  justify-items: center;
+  gap: var(--s-2);
+  text-align: center;
+  padding: var(--s-5) 0 var(--s-4);
+}
 
-.page-hero .eyebrow { margin-bottom: var(--s-2); }
+.page-hero .eyebrow { margin-bottom: 0; }
 
 .page-hero h1 {
   font-size: var(--text-h1);
-  font-style: italic;
-  line-height: 1.2;
-  max-width: 22ch;
-  margin: 0 0 var(--s-2);
+  font-style: normal;
+  line-height: 1.15;
+  letter-spacing: 0;
+  max-width: 24ch;
+  margin: 0;
 }
 
-.page-hero .lead { margin: 0; color: var(--ink-soft); }
+.page-hero .lead { margin: 0 auto; color: var(--ink-soft); }
 
 .on-dark .page-hero .lead { color: var(--cream-soft); }
+
+.page-hero .breadcrumbs { margin-bottom: 0.25rem; }
+
+.detail-subtitle {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0;
+}
 
 /* --------------------------------------------------------------------------
    Portfolio grid
@@ -1328,7 +1348,7 @@ textarea { min-height: 8rem; resize: vertical; }
   grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
   gap: clamp(var(--s-4), 5vw, var(--s-6));
   align-items: start;
-  padding-block: var(--s-4) var(--section-y);
+  padding-block: 0 var(--section-y);
 }
 
 .detail-media { overflow: hidden; }
@@ -1349,16 +1369,6 @@ textarea { min-height: 8rem; resize: vertical; }
   font-style: italic;
   line-height: 1.2;
   margin: 0 0 0.5rem;
-}
-
-.detail-copy .detail-subtitle {
-  font-family: var(--font-body);
-  font-size: var(--text-body);
-  font-weight: 400;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  margin: 0 0 var(--s-3);
 }
 
 .detail-copy .prose { margin-bottom: var(--s-3); }
