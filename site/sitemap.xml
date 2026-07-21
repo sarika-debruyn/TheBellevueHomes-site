@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
       <loc>https://thebellevuehomes.com/</loc>
@@ -18,5 +17,20 @@
    </url>
    <url>
       <loc>https://thebellevuehomes.com/contact</loc>
+   </url>
+   <url>
+      <loc>https://thebellevuehomes.com/portfolio-collections/my-portfolio/custom-homes-showcase/</loc>
+   </url>
+   <url>
+      <loc>https://thebellevuehomes.com/portfolio-collections/my-portfolio/house/</loc>
+   </url>
+   <url>
+      <loc>https://thebellevuehomes.com/portfolio-collections/my-portfolio/wilson-2/</loc>
+   </url>
+   <url>
+      <loc>https://thebellevuehomes.com/portfolio-collections/my-portfolio/wilson-1/</loc>
+   </url>
+   <url>
+      <loc>https://thebellevuehomes.com/portfolio-collections/my-portfolio/oakdale-house/</loc>
    </url>
 </urlset>
