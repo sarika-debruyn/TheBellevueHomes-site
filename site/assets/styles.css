@@ -60,6 +60,8 @@ html { scroll-behavior: smooth; }
 
 [id] { scroll-margin-top: calc(var(--header-h) + 1rem); }
 
+html, body { max-width: 100%; overflow-x: hidden; }
+
 body {
   margin: 0;
   font-family: var(--font-body);
@@ -72,7 +74,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-img { max-width: 100%; display: block; }
+img, iframe, video, svg { max-width: 100%; display: block; }
 
 a { color: inherit; text-decoration: none; }
 
@@ -731,11 +733,15 @@ h1, h2, h3 {
   color: var(--cream-soft);
 }
 
-/* Audience routing cards */
+/* Audience routing cards — deliberate 2x2, no orphaned odd row */
 .audience-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: var(--s-3);
+}
+
+@media (max-width: 767px) {
+  .audience-grid { grid-template-columns: 1fr; }
 }
 
 .audience-card {
@@ -800,24 +806,63 @@ h1, h2, h3 {
 
 .portfolio-section { padding-bottom: var(--section-y); }
 
+/* Deliberate 2-up editorial grid — an odd final item spans full width as a
+   closing feature rather than leaving a lopsided orphan row. */
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: var(--s-4) var(--s-3);
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--s-5) var(--s-4);
 }
+
+.project-card:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
+.project-card:last-child:nth-child(odd) .project-card__media {
+  aspect-ratio: 16 / 8;
+}
+
+.project-card:last-child:nth-child(odd) img { aspect-ratio: 16 / 8; }
 
 .project-card { display: block; }
 
-.project-card__media { overflow: hidden; }
+.project-card__media { position: relative; overflow: hidden; }
 
 .project-card img {
   width: 100%;
+  height: auto;
   aspect-ratio: 4 / 5;
   object-fit: cover;
-  transition: transform var(--dur) var(--ease), filter var(--dur) var(--ease);
+  transition: transform 500ms var(--ease), filter 500ms var(--ease);
 }
 
 .project-card:hover img { transform: scale(1.03); filter: brightness(1.06); }
+
+@media (max-width: 767px) {
+  .projects-grid { grid-template-columns: 1fr; }
+  .project-card:last-child:nth-child(odd) .project-card__media,
+  .project-card:last-child:nth-child(odd) img { aspect-ratio: 4 / 5; }
+}
+
+/* Rendering vs. photography label — honest disclosure on marketing renders */
+.media-badge {
+  position: absolute;
+  top: var(--s-2);
+  left: var(--s-2);
+  z-index: 1;
+  padding: 0.35rem 0.75rem;
+  background: rgba(23, 20, 16, 0.72);
+  color: var(--cream);
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+.detail-media { position: relative; }
 
 .project-card__body { padding: var(--s-2) 0 0; }
 
@@ -898,6 +943,30 @@ h1, h2, h3 {
   background-size: 313px 470px;
 }
 
+/* Discreet room/material caption, revealed slowly on hover or keyboard focus */
+.gallery-panel__caption,
+.project-card__media .gallery-panel__caption {
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: 1;
+  padding: var(--s-3) var(--s-2) var(--s-2);
+  background: linear-gradient(to top, rgba(23, 20, 16, 0.82) 0%, rgba(23, 20, 16, 0) 100%);
+  color: var(--cream);
+  font-size: var(--text-small);
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 450ms var(--ease), transform 450ms var(--ease);
+  pointer-events: none;
+}
+
+.gallery-panel:hover .gallery-panel__caption,
+.gallery-panel:focus-visible .gallery-panel__caption {
+  opacity: 1;
+  transform: none;
+}
+
 .gallery-copy {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -923,7 +992,9 @@ h1, h2, h3 {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(23, 20, 16, 0.94);
+  background: rgba(13, 11, 9, 0.98);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
   opacity: 0;
   visibility: hidden;
   transition: opacity var(--dur) var(--ease), visibility 0s linear var(--dur);
@@ -1001,6 +1072,7 @@ body:has(.about-section) { background: var(--dark); }
 
 .about-grid__media img {
   width: 100%;
+  height: auto;
   aspect-ratio: 403 / 560;
   object-fit: cover;
 }
@@ -1017,9 +1089,35 @@ body:has(.about-section) { background: var(--dark); }
 
 .about-grid__copy p {
   font-weight: 300;
+  line-height: 1.65;
   color: var(--cream-soft);
   margin: 0 0 1.1rem;
-  max-width: var(--max-text);
+  max-width: 64ch;
+}
+
+.about-grid__portrait {
+  display: grid;
+  gap: var(--s-2);
+  margin-top: var(--s-3);
+}
+
+.about-grid__portrait-frame {
+  width: 168px;
+  aspect-ratio: 1;
+  border: 1px solid var(--line-dark);
+  background: var(--dark-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--s-2);
+}
+
+.about-grid__portrait-frame span {
+  font-size: var(--text-small);
+  color: var(--cream-soft);
+  font-style: italic;
+  font-family: var(--font-display);
 }
 
 .owner-profile {
@@ -1058,138 +1156,82 @@ body:has(.testimonials-section) { background: var(--dark); }
 
 .testimonials-section .page-hero h1 { color: var(--cream); }
 
-.testimonials-slideshow {
-  position: relative;
-  width: 100%;
-  min-height: 560px;
-  overflow: hidden;
-  background: var(--dark-2);
+/* Testimonial wall — every quote visible at once, grouped by audience so the
+   volume and range of proof registers immediately rather than one at a time. */
+.testimonial-wall {
+  display: grid;
+  gap: var(--s-5);
+  padding-block: var(--s-4) 0;
 }
 
-.testimonials-slideshow__track { position: relative; width: 100%; min-height: 560px; }
-
-.testimonial-slide {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 900ms var(--ease), visibility 0s linear 900ms;
-  padding: var(--s-5) clamp(3.5rem, 8vw, 6rem);
+.testimonial-wall__group {
+  display: grid;
+  gap: var(--s-3);
 }
 
-.testimonial-slide.is-active {
-  opacity: 1;
-  visibility: visible;
-  transition: opacity 900ms var(--ease), visibility 0s linear 0s;
-  z-index: 1;
-}
-
-.testimonial-slide__inner {
-  width: 100%;
-  max-width: 660px;
-  text-align: center;
-}
-
-.testimonial-slide__tag {
+.testimonial-wall__group-label {
   font-size: var(--text-eyebrow);
-  letter-spacing: 0.18em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--accent);
   font-weight: 500;
-  margin-bottom: var(--s-2);
+  padding-bottom: var(--s-2);
+  border-bottom: 1px solid var(--line-dark);
 }
 
-.testimonial-slide__quote-mark {
+.testimonial-wall__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--s-3);
+  align-items: start;
+}
+
+.testimonial-card {
+  display: grid;
+  gap: var(--s-2);
+  padding: var(--s-4);
+  background: var(--dark-2);
+  border: 1px solid var(--line-dark);
+}
+
+.testimonial-card__quote-mark {
   font-family: var(--font-display);
   font-style: italic;
-  font-size: 3.5rem;
+  font-size: 2.75rem;
   line-height: 0.6;
   color: var(--accent);
-  margin-bottom: var(--s-2);
 }
 
-.testimonial-slide__body p {
+.testimonial-card__body p {
   font-family: var(--font-display);
   font-style: italic;
-  font-size: clamp(1.125rem, 1.05rem + 0.4vw, 1.3125rem);
-  line-height: 1.65;
+  font-size: 1.125rem;
+  line-height: 1.6;
   color: var(--cream);
-  margin: 0 0 0.9rem;
+  margin: 0 0 0.75rem;
 }
 
-.testimonial-slide__body p:last-child { margin-bottom: 0; }
+.testimonial-card__body p:last-child { margin-bottom: 0; }
 
-.testimonial-slide__attribution {
-  margin-top: var(--s-3);
+.testimonial-card__attribution {
+  margin-top: var(--s-1);
+  padding-top: var(--s-2);
+  border-top: 1px solid var(--line-dark);
   font-family: var(--font-body);
   font-weight: 400;
-  font-size: var(--text-body);
-  letter-spacing: 0.04em;
+  font-size: var(--text-small);
+  letter-spacing: 0.02em;
   color: var(--cream-soft);
 }
 
-.testimonial-slide__attribution strong {
+.testimonial-card__attribution strong {
   display: block;
   font-weight: 500;
+  font-size: var(--text-body);
   color: var(--cream);
-  letter-spacing: 0.08em;
+  letter-spacing: 0.02em;
+  margin-bottom: 0.15rem;
 }
-
-.testimonials-slideshow__nav {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: transparent;
-  border: 0;
-  color: var(--cream);
-  font-family: var(--font-display);
-  font-size: 2.75rem;
-  line-height: 1;
-  width: 48px;
-  height: 64px;
-  cursor: pointer;
-  opacity: 0.6;
-  transition: opacity var(--dur) var(--ease);
-  z-index: 2;
-}
-
-.testimonials-slideshow__nav:hover { opacity: 1; }
-
-.testimonials-slideshow__nav--prev { left: 18px; }
-.testimonials-slideshow__nav--next { right: 18px; }
-
-.testimonials-slideshow__dots {
-  position: absolute;
-  bottom: 36px;
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  z-index: 2;
-}
-
-.testimonials-slideshow__dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  border: 0;
-  padding: 0;
-  background: rgba(237, 229, 212, 0.4);
-  cursor: pointer;
-  transition: background var(--dur) var(--ease), transform var(--dur) var(--ease);
-}
-
-.testimonials-slideshow__dot.is-active {
-  background: var(--accent);
-  transform: scale(1.35);
-}
-
-.testimonials-slideshow__dot:hover { background: var(--cream); }
 
 /* --------------------------------------------------------------------------
    Contact
@@ -1240,6 +1282,91 @@ body:has(.contact-section) { background: var(--dark); }
   aspect-ratio: 4 / 3;
   border: 0;
   filter: grayscale(1) contrast(0.95);
+}
+
+/* Stylized neighborhood marker — replaces raw Google Maps chrome with an
+   on-brand wayfinding graphic; links out to the real map for navigation. */
+.neighborhood-map {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: var(--dark-2);
+  overflow: hidden;
+  border: 1px solid var(--line-dark);
+}
+
+.detail-map .neighborhood-map { aspect-ratio: 16 / 7; }
+
+.neighborhood-map__grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--line-dark) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line-dark) 1px, transparent 1px);
+  background-size: 48px 48px;
+  opacity: 0.5;
+}
+
+.neighborhood-map__grid::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(115deg, transparent 38%, rgba(169, 131, 82, 0.14) 46%, transparent 54%),
+    linear-gradient(20deg, transparent 60%, rgba(169, 131, 82, 0.1) 68%, transparent 76%);
+}
+
+.neighborhood-map__pin {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50% 50% 50% 0;
+  background: var(--accent);
+  transform-origin: bottom center;
+  rotate: -45deg;
+  box-shadow: 0 0 0 6px rgba(169, 131, 82, 0.18);
+}
+
+.neighborhood-map__label {
+  position: absolute;
+  left: 50%;
+  bottom: var(--s-3);
+  transform: translateX(-50%);
+  display: grid;
+  justify-items: center;
+  gap: 0.3rem;
+  text-align: center;
+}
+
+.neighborhood-map__label strong {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--text-h3);
+  font-weight: 400;
+  color: var(--cream);
+}
+
+.neighborhood-map__label span {
+  font-size: var(--text-eyebrow);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border-bottom: 1px solid rgba(169, 131, 82, 0.5);
+  padding-bottom: 2px;
+  transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+
+.neighborhood-map:hover .neighborhood-map__label span,
+.neighborhood-map:focus-visible .neighborhood-map__label span {
+  color: var(--cream);
+  border-color: var(--cream);
 }
 
 .contact-thanks {
@@ -1414,6 +1541,96 @@ textarea { min-height: 8rem; resize: vertical; }
 .detail-map { overflow: hidden; }
 
 .detail-map .map-embed { aspect-ratio: 16 / 7; }
+
+/* --------------------------------------------------------------------------
+   Partner pages — investor track record / broker inventory table
+   -------------------------------------------------------------------------- */
+
+.inventory-table {
+  display: grid;
+  border-top: 1px solid var(--line-dark);
+}
+
+.inventory-table__head,
+.inventory-row {
+  display: grid;
+  grid-template-columns: 2.2fr 1.3fr 1fr 1.4fr 1.2fr 1fr;
+  gap: var(--s-2);
+  align-items: center;
+  padding-block: var(--s-2);
+  border-bottom: 1px solid var(--line-dark);
+}
+
+.inventory-table__head {
+  font-size: var(--text-eyebrow);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.inventory-row__name {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.0625rem;
+  color: var(--cream);
+}
+
+.inventory-row__name a { color: inherit; border-bottom: 1px solid rgba(169, 131, 82, 0.5); }
+.inventory-row__name a:hover { color: var(--accent); border-color: var(--accent); }
+
+.inventory-row span:not(.inventory-row__name):not(.inventory-row__status) {
+  color: var(--cream-soft);
+  font-size: var(--text-small);
+}
+
+.inventory-row__status {
+  font-size: var(--text-eyebrow);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+  background: rgba(169, 131, 82, 0.14);
+  padding: 0.25rem 0.6rem;
+  justify-self: start;
+}
+
+@media (max-width: 767px) {
+  .inventory-table__head { display: none; }
+
+  .inventory-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.4rem 1rem;
+    padding-block: var(--s-3);
+  }
+
+  .inventory-row__name { grid-column: 1 / -1; }
+  .inventory-row__status { grid-column: 1 / -1; margin-top: 0.3rem; }
+}
+
+.collab-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--s-3);
+}
+
+.collab-steps li {
+  list-style: none;
+  padding: var(--s-3);
+  background: var(--dark-2);
+  border: 1px solid var(--line-dark);
+}
+
+.collab-steps__index {
+  display: block;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--text-h3);
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+
+.collab-steps p { margin: 0; color: var(--cream-soft); font-weight: 300; }
+.collab-steps h3 { font-size: 1.0625rem; font-style: normal; color: var(--cream); margin-bottom: 0.35rem; }
 
 /* --------------------------------------------------------------------------
    Footer — sitemap

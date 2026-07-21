@@ -25,6 +25,18 @@
         "destination": "/contact.html"
       },
       {
+        "source": "/for-investors",
+        "destination": "/for-investors.html"
+      },
+      {
+        "source": "/for-brokers",
+        "destination": "/for-brokers.html"
+      },
+      {
+        "source": "/for-designers",
+        "destination": "/for-designers.html"
+      },
+      {
         "source": "/portfolio-collections/my-portfolio/custom-homes-showcase",
         "destination": "/portfolio-collections/my-portfolio/custom-homes-showcase/index.html"
       },
