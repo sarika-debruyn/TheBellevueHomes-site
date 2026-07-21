@@ -844,24 +844,6 @@ h1, h2, h3 {
   .project-card:last-child:nth-child(odd) img { aspect-ratio: 4 / 5; }
 }
 
-/* Rendering vs. photography label — honest disclosure on marketing renders */
-.media-badge {
-  position: absolute;
-  top: var(--s-2);
-  left: var(--s-2);
-  z-index: 1;
-  padding: 0.35rem 0.75rem;
-  background: rgba(23, 20, 16, 0.72);
-  color: var(--cream);
-  font-family: var(--font-body);
-  font-size: 0.6875rem;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  -webkit-backdrop-filter: blur(4px);
-  backdrop-filter: blur(4px);
-}
-
 .detail-media { position: relative; }
 
 .project-card__body { padding: var(--s-2) 0 0; }
@@ -1282,91 +1264,6 @@ body:has(.contact-section) { background: var(--dark); }
   aspect-ratio: 4 / 3;
   border: 0;
   filter: grayscale(1) contrast(0.95);
-}
-
-/* Stylized neighborhood marker — replaces raw Google Maps chrome with an
-   on-brand wayfinding graphic; links out to the real map for navigation. */
-.neighborhood-map {
-  position: relative;
-  display: block;
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  background: var(--dark-2);
-  overflow: hidden;
-  border: 1px solid var(--line-dark);
-}
-
-.detail-map .neighborhood-map { aspect-ratio: 16 / 7; }
-
-.neighborhood-map__grid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(var(--line-dark) 1px, transparent 1px),
-    linear-gradient(90deg, var(--line-dark) 1px, transparent 1px);
-  background-size: 48px 48px;
-  opacity: 0.5;
-}
-
-.neighborhood-map__grid::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(115deg, transparent 38%, rgba(169, 131, 82, 0.14) 46%, transparent 54%),
-    linear-gradient(20deg, transparent 60%, rgba(169, 131, 82, 0.1) 68%, transparent 76%);
-}
-
-.neighborhood-map__pin {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -100%);
-  width: 14px;
-  height: 14px;
-  border-radius: 50% 50% 50% 0;
-  background: var(--accent);
-  transform-origin: bottom center;
-  rotate: -45deg;
-  box-shadow: 0 0 0 6px rgba(169, 131, 82, 0.18);
-}
-
-.neighborhood-map__label {
-  position: absolute;
-  left: 50%;
-  bottom: var(--s-3);
-  transform: translateX(-50%);
-  display: grid;
-  justify-items: center;
-  gap: 0.3rem;
-  text-align: center;
-}
-
-.neighborhood-map__label strong {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: var(--text-h3);
-  font-weight: 400;
-  color: var(--cream);
-}
-
-.neighborhood-map__label span {
-  font-size: var(--text-eyebrow);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--accent);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  border-bottom: 1px solid rgba(169, 131, 82, 0.5);
-  padding-bottom: 2px;
-  transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease);
-}
-
-.neighborhood-map:hover .neighborhood-map__label span,
-.neighborhood-map:focus-visible .neighborhood-map__label span {
-  color: var(--cream);
-  border-color: var(--cream);
 }
 
 .contact-thanks {
