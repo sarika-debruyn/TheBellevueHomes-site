@@ -3,60 +3,6 @@
     "public": "site",
     "cleanUrls": true,
     "trailingSlash": false,
-    "rewrites": [
-      {
-        "source": "/about",
-        "destination": "/about.html"
-      },
-      {
-        "source": "/portfolio-1",
-        "destination": "/portfolio-1.html"
-      },
-      {
-        "source": "/gallery",
-        "destination": "/gallery.html"
-      },
-      {
-        "source": "/testimonials",
-        "destination": "/testimonials.html"
-      },
-      {
-        "source": "/contact",
-        "destination": "/contact.html"
-      },
-      {
-        "source": "/for-investors",
-        "destination": "/for-investors.html"
-      },
-      {
-        "source": "/for-brokers",
-        "destination": "/for-brokers.html"
-      },
-      {
-        "source": "/for-designers",
-        "destination": "/for-designers.html"
-      },
-      {
-        "source": "/portfolio-collections/my-portfolio/custom-homes-showcase",
-        "destination": "/portfolio-collections/my-portfolio/custom-homes-showcase/index.html"
-      },
-      {
-        "source": "/portfolio-collections/my-portfolio/house",
-        "destination": "/portfolio-collections/my-portfolio/house/index.html"
-      },
-      {
-        "source": "/portfolio-collections/my-portfolio/wilson-2",
-        "destination": "/portfolio-collections/my-portfolio/wilson-2/index.html"
-      },
-      {
-        "source": "/portfolio-collections/my-portfolio/wilson-1",
-        "destination": "/portfolio-collections/my-portfolio/wilson-1/index.html"
-      },
-      {
-        "source": "/portfolio-collections/my-portfolio/oakdale-house",
-        "destination": "/portfolio-collections/my-portfolio/oakdale-house/index.html"
-      }
-    ],
     "ignore": [
       "firebase.json",
       "**/.*",
