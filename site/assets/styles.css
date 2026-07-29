@@ -24,7 +24,7 @@
 
   /* Typography */
   --font-display: "Cormorant Garamond", "Iowan Old Style", Georgia, serif;
-  --font-sans: "Jost", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", "Helvetica Neue", Arial, sans-serif;
   /* compatibility aliases */
   --font-copy: var(--font-sans);
   --font-heading: var(--font-display);
