@@ -1406,7 +1406,9 @@ textarea { min-height: 8rem; resize: vertical; }
 .detail-map { overflow: hidden; }
 
 .detail-map .map-embed { aspect-ratio: 16 / 7; }
-.detail-map .section-head { margin-top: var(--s-2); }
+..detail-map .section-head {
+  margin-top: 0;
+}
 
 /* --------------------------------------------------------------------------
    Partner pages — investor track record / broker inventory table
