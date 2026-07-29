@@ -27,14 +27,15 @@
   --font-body: "Jost", ui-sans-serif, system-ui, sans-serif;
   --font-brand: "Bodoni Moda", "Bodoni 72", Didot, serif;
 
-  --text-display: clamp(2.75rem, 7.5vw, 6.5rem);
-  --text-h1: clamp(2.25rem, 4.6vw, 3.9rem);
-  --text-h2: clamp(1.6rem, 2.6vw, 2.35rem);
+  --text-display: clamp(3.5rem, 5vw, 3.875rem);
+  --text-h1: clamp(3.5rem, 4vw, 3.875rem);
+  --text-h2: clamp(3.25rem, 3vw, 3.5rem);
   --text-h3: clamp(1.3rem, 1.2rem + 0.5vw, 1.5rem);      /* 21 → 24 */
-  --text-lead: clamp(1.02rem, 1.35vw, 1.22rem);
+  --text-lead: 2rem;
   --text-body: 1.0625rem;                                 /* 17 */
   --text-small: 0.875rem;                                 /* 14 */
-  --text-eyebrow: 0.6875rem;
+  --text-eyebrow: 0.75rem;
+  --text-muted: oklch(0.45 0.04 72);
 
   /* Space */
   --s-1: 0.5rem;
@@ -43,11 +44,11 @@
   --s-4: 2.5rem;
   --s-5: 4rem;
   --s-6: 6rem;
-  --section-y: clamp(3.5rem, 2.4rem + 4.4vw, 6rem);
+  --section-y: clamp(5rem, 6vw, 7.5rem);
+  --max-text: 66ch;
 
   /* Layout + motion */
   --max: 1140px;
-  --max-text: 68ch;
   --shadow: 0 24px 60px rgba(33, 28, 23, 0.1);
   --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
   --dur: 400ms;
@@ -67,7 +68,7 @@ body {
   font-family: var(--font-body);
   font-weight: 400;
   font-size: var(--text-body);
-  line-height: 1.6;
+  line-height: 1.5;
   color: var(--ink);
   background: var(--paper);
   -webkit-font-smoothing: antialiased;
@@ -111,7 +112,7 @@ h1, h2, h3 {
   font-family: var(--font-display);
   font-weight: 300;
   letter-spacing: -0.015em;
-  line-height: 1.06;
+  line-height: 1.1;
   color: inherit;
 }
 
@@ -120,9 +121,9 @@ h1, h2, h3 {
   font-family: var(--font-body);
   font-size: var(--text-eyebrow);
   font-weight: 500;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--accent-deep);
+  color: var(--text-muted);
 }
 
 .on-dark .eyebrow,
@@ -136,13 +137,13 @@ h1, h2, h3 {
 
 .title-xl {
   font-size: var(--text-h1);
-  line-height: 1.04;
+  line-height: 1.08;
   letter-spacing: -0.018em;
 }
 
 .title-lg {
   font-size: var(--text-h2);
-  line-height: 1.12;
+  line-height: 1.1;
   letter-spacing: -0.012em;
 }
 
@@ -154,7 +155,7 @@ h1, h2, h3 {
 .lead {
   font-size: var(--text-lead);
   font-weight: 300;
-  line-height: 1.65;
+  line-height: 1.45;
   max-width: var(--max-text);
 }
 
@@ -176,7 +177,7 @@ h1, h2, h3 {
 .section-head--center .lead { margin-inline: auto; }
 
 .prose p {
-  margin: 0 0 1.1rem;
+  margin: 0 0 1.35rem;
   max-width: var(--max-text);
 }
 
@@ -185,21 +186,29 @@ h1, h2, h3 {
 .prose a,
 .link-inline {
   color: var(--accent-deep);
-  border-bottom: 1px solid rgba(138, 105, 63, 0.4);
-  transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+  text-decoration: underline;
+  text-decoration-color: currentColor;
+  text-underline-offset: 0.2em;
+  transition: color var(--dur) var(--ease), text-decoration-color var(--dur) var(--ease);
 }
 
 .prose a:hover,
 .link-inline:hover {
   color: var(--ink);
-  border-bottom-color: var(--ink);
+  text-decoration-color: var(--ink);
 }
 
 .on-dark .prose a,
-.on-dark .link-inline { color: var(--accent); border-bottom-color: rgba(169, 131, 82, 0.5); }
+.on-dark .link-inline {
+  color: var(--accent);
+  text-decoration-color: rgba(169, 131, 82, 0.5);
+}
 
 .on-dark .prose a:hover,
-.on-dark .link-inline:hover { color: var(--cream); border-bottom-color: var(--cream); }
+.on-dark .link-inline:hover {
+  color: var(--cream);
+  text-decoration-color: var(--cream);
+}
 
 /* Dark section base */
 .on-dark {
@@ -575,7 +584,7 @@ h1, h2, h3 {
 .intro__text {
   font-size: var(--text-lead);
   font-weight: 300;
-  line-height: 1.65;
+  line-height: 1.45;
   max-width: var(--max-text);
   margin: 0;
 }
@@ -599,7 +608,7 @@ h1, h2, h3 {
 
 .category__title {
   font-size: var(--text-h2);
-  line-height: 1.25;
+  line-height: 1.1;
   letter-spacing: 0.02em;
   text-transform: none;
   color: #fff;
@@ -722,7 +731,7 @@ h1, h2, h3 {
 .page-hero h1 {
   font-size: var(--text-h1);
   font-style: normal;
-  line-height: 1.15;
+  line-height: 1.08;
   letter-spacing: 0;
   max-width: 24ch;
   margin: 0;

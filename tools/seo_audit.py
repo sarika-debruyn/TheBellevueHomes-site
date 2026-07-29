@@ -91,10 +91,10 @@ PROJECT_PAGES = [
         "h1": "Lakeview",
     },
     {
-        "label": "Lincoln Square Residence Under Construction",
+        "label": "Lincoln Square Residence Completed",
         "file": "site/portfolio-collections/my-portfolio/oakdale-house/index.html",
         "canonical": "https://thebellevuehomes.com/portfolio-collections/my-portfolio/oakdale-house/",
-        "title": "Lincoln Square Residence Under Construction | The Bellevue Homes",
+        "title": "Lincoln Square Residence Completed | The Bellevue Homes",
         "description": "View an under-construction Lincoln Square Bellevue Homes residence with 5,620 square feet, 6 bedrooms, and 5.5 baths.",
         "h1": "Lincoln Square",
     },
