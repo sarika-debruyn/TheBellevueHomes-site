@@ -1660,6 +1660,10 @@ textarea { min-height: 8rem; resize: vertical; }
    -------------------------------------------------------------------------- */
 
 .scroll-reveal {
+  /* svh is the only place in this sheet that needs it; browsers without it
+     drop the declaration, collapsing the band to height 0 and hiding the
+     image entirely. vh first keeps the band visible everywhere. */
+  height: 60vh;
   height: 60svh;
   width: 100%;
   background-attachment: fixed;
